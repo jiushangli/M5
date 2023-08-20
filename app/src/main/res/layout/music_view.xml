@@ -35,9 +35,9 @@
         android:layout_marginTop="24dp"
         android:layout_toStartOf="@+id/songDuration"
         android:layout_toEndOf="@id/imageMV"
-        android:text="@string/song_album"
         android:gravity="center_vertical"
         android:singleLine="true"
+        android:text="@string/song_album"
         android:textSize="12sp"
         android:textStyle="bold" />
 

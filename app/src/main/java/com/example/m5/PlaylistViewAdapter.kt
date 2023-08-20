@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.m5.databinding.PlaylistViewBinding
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class PlaylistViewAdapter(private val context: Context, private var playlistList: ArrayList<Playlist>) :
     RecyclerView.Adapter<PlaylistViewAdapter.MyHolder>() {
@@ -18,7 +17,6 @@ class PlaylistViewAdapter(private val context: Context, private var playlistList
         val image = binding.playlistImg
         val name = binding.playlistName
         val root = binding.root
-        val delete = binding.playlistDeleteBtn
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewAdapter.MyHolder {
@@ -28,7 +26,8 @@ class PlaylistViewAdapter(private val context: Context, private var playlistList
     override fun onBindViewHolder(holder: PlaylistViewAdapter.MyHolder, position: Int) {
         holder.name.text = playlistList[position].name
         holder.name.isSelected = true
-        holder.delete.setOnClickListener {
+        //用来删除歌单
+/*        holder.delete.setOnClickListener {
             val builder = MaterialAlertDialogBuilder(context)
             builder.setTitle(playlistList[position].name)
                 .setMessage("你想要删除当前歌单吗?")
@@ -42,7 +41,7 @@ class PlaylistViewAdapter(private val context: Context, private var playlistList
                 }
             val customDialog = builder.create()
             customDialog.show()
-        }
+        }*/
         holder.root.setOnClickListener {
             val intent = Intent(context, PlaylistDetails::class.java).setAction("your.custom.action")
             intent.putExtra("index", position)
