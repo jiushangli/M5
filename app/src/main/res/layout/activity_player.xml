@@ -53,7 +53,8 @@
     <LinearLayout
         android:id="@+id/songInfoPA"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="70dp"
+        android:layout_weight="1"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -86,7 +87,7 @@
     <!--    播放的三个控件-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="70dp"
         android:layout_margin="0dp"
         android:layout_weight="1"
         android:gravity="center"
@@ -124,9 +125,8 @@
     <!--    进度条-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="56dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_weight="1"
         android:background="@drawable/rounded_background"
         android:backgroundTint="@color/black"
         android:orientation="horizontal"
@@ -164,9 +164,8 @@
     <!--    最后四个控件-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="56dp"
         android:layout_gravity="bottom"
-        android:layout_weight="1"
         android:layout_marginVertical="9dp"
         android:layout_marginHorizontal="20dp"
         android:background="@drawable/rounded_background"
