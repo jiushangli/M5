@@ -5,48 +5,53 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PlaylistActivity">
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/blue_light"
+        android:layout_height="80dp"
+        android:background="@color/mask_green"
+        android:elevation="7dp"
+        android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/playlistRV"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:layout_width="32dp"
-            android:layout_height="50dp"
-            android:backgroundTint="@android:color/transparent"
-            android:contentDescription="@string/back_btn"
-            android:src="@drawable/back_icon"
-            app:tint="@color/white" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:contentDescription="@string/playlist_btn"
-            android:gravity="center"
-            android:layout_weight="1"
+        <Button
+            android:id="@+id/navFeedback"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/rounded_background"
+            android:drawableLeft="@drawable/music_icon"
             android:text="@string/playlist_btn"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textAlignment="viewEnd"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:ignore="RtlCompat,RtlHardcoded" />
 
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="50dp"
-            android:backgroundTint="@android:color/transparent"
-            android:contentDescription="@string/back_btn"
-            android:padding="5dp"
-            android:src="@drawable/more_icon"
-            app:tint="@color/white" />
     </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/playlistRV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingBottom="40dp"
+        android:scrollbarThumbVertical="@drawable/scroll_bar_icon"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/addPlaylistBtn"
         android:layout_marginBottom="4dp"
         android:backgroundTint="@color/blue"
         app:icon="@drawable/add_icon"
@@ -58,4 +63,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.9" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

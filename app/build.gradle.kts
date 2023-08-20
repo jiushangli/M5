@@ -53,4 +53,15 @@ dependencies {
     //Glide for image loading
     implementation (libs.glide)
     annotationProcessor (libs.compiler)
+
+    //for Notification,导入media
+    implementation(libs.androidx.media)
+
+    //for storing
+    implementation(libs.gson)
+
+    //for sending email
+    implementation(libs.android.mail)
+    implementation(libs.android.activation)
+
 }
