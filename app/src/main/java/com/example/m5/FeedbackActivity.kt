@@ -21,6 +21,7 @@ class FeedbackActivity : AppCompatActivity() {
         setTheme(R.style.coolBlue)
         binding = ActivityFeedbackBinding.inflate(layoutInflater)
         setContentView(binding.root)
+//        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
         supportActionBar?.title = "反馈"
 
         binding.sendFA.setOnClickListener {

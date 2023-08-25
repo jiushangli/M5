@@ -4,27 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
     tools:context=".FavouriteActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayoutFA"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@color/cool_red"
+        android:background="@drawable/gradient_green"
         android:elevation="7dp"
-        android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/favouriteRV"
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/navFeedback"
+            android:id="@+id/navFA"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginHorizontal="40dp"
             android:background="@drawable/rounded_background"
             android:drawableLeft="@drawable/music_icon"
             android:text="@string/favourites_btn"
@@ -34,6 +33,49 @@
             android:textStyle="bold"
             tools:ignore="RtlCompat,RtlHardcoded" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/playModeFA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_background"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutFA">
+
+        <ImageButton
+            android:id="@+id/shufflerBtnFA"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/shuffler_icon"
+            app:tint="@color/cool_red" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addBtnFA"
+            style="?attr/floatingActionButtonSmallSurfaceStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:backgroundTint="@color/mask_pink"
+            app:elevation="0dp"
+            app:srcCompat="@drawable/plus_icon" />
+
+        <ImageButton
+            android:id="@+id/shuffleBtnFA"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/shuffle_icon"
+            app:tint="@color/cool_green" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -46,21 +88,7 @@
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/playModeFA" />
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/shuffleBtnFA"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:backgroundTint="@color/blue"
-        app:icon="@drawable/shuffle_icon"
-        app:iconSize="35dp"
-        app:iconTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

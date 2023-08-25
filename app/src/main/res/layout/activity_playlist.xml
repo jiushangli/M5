@@ -4,27 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
     tools:context=".PlaylistActivity">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayoutPA"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="@color/mask_green"
+        android:background="@drawable/gradient_near_moon"
         android:elevation="7dp"
-        android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/playlistRV"
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/navFeedback"
+            android:id="@+id/navFA"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginHorizontal="40dp"
             android:background="@drawable/rounded_background"
             android:drawableLeft="@drawable/music_icon"
             android:text="@string/playlist_btn"
@@ -36,6 +35,81 @@
 
     </LinearLayout>
 
+  <!--  <LinearLayout
+        android:id="@+id/playlistMode"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="70dp"
+        android:background="@drawable/rounded_background"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutPA"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/setBtn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/playlist_icon"
+            app:tint="@color/mask_cyan" />
+
+        <ImageButton
+            android:id="@+id/playlistBtn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/album_icon"
+            app:tint="@color/mask_cyan" />
+    </LinearLayout>-->
+
+    <LinearLayout
+        android:id="@+id/playlistMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_background"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutPA"
+
+        >
+
+        <ImageButton
+            android:id="@+id/shufflerBtnFA"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/playlist_icon"
+            app:tint="@color/mask_cyan" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addPlaylistBtn"
+            style="?attr/floatingActionButtonSmallSurfaceStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:backgroundTint="@color/mask_blue"
+            app:elevation="0dp"
+            app:srcCompat="@drawable/plus_icon" />
+
+        <ImageButton
+            android:id="@+id/shuffleBtnFA"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/album_icon"
+            app:tint="@color/cool_green" />
+    </LinearLayout>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/playlistRV"
         android:layout_width="match_parent"
@@ -46,22 +120,6 @@
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/addPlaylistBtn"
-        android:layout_marginBottom="4dp"
-        android:backgroundTint="@color/blue"
-        app:icon="@drawable/add_icon"
-        app:iconSize="35dp"
-        app:iconTint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9" />
+        app:layout_constraintTop_toBottomOf="@+id/playlistMode" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package com.example.m5
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,7 +17,7 @@ class SelectionActivity : AppCompatActivity() {
         binding = ActivitySelectionBinding.inflate(layoutInflater)
         setTheme(MainActivity.currentTheme[MainActivity.themeIndex])
         setContentView(binding.root)
-
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
         binding.selectionRV.setItemViewCacheSize(10)
         binding.selectionRV.setHasFixedSize(true)
         binding.selectionRV.layoutManager = LinearLayoutManager(this)

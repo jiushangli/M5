@@ -44,14 +44,14 @@ class NotificationReceiver : BroadcastReceiver() {
         //装载播放界面的专辑以及歌曲名
         Glide.with(context)
             .load(PlayerActivity.musicListPA[PlayerActivity.songPosition].artUri)
-            .apply(RequestOptions().placeholder(R.drawable.music_player).centerCrop())
+            .apply(RequestOptions().placeholder(R.drawable.moni1).centerCrop())
             .into(PlayerActivity.binding.songImgPA)
         PlayerActivity.binding.songNamePA.text =
             PlayerActivity.musicListPA[PlayerActivity.songPosition].title
 
         Glide.with(context)
             .load(PlayerActivity.musicListPA[PlayerActivity.songPosition].artUri)
-            .apply(RequestOptions().placeholder(R.drawable.music_player).centerCrop())
+            .apply(RequestOptions().placeholder(R.drawable.moni1).centerCrop())
             .into(NowPlaying.binding.songImgNP)
         NowPlaying.binding.songNameNP.text =
             PlayerActivity.musicListPA[PlayerActivity.songPosition].title

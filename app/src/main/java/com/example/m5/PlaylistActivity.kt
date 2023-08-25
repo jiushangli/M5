@@ -1,16 +1,22 @@
 package com.example.m5
 
+import android.graphics.Rect
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.example.m5.databinding.ActivityPlaylistBinding
 import com.example.m5.databinding.AddPlaylistDialogBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.text.SimpleDateFormat
 import java.util.Locale
+
 
 class PlaylistActivity : AppCompatActivity() {
 
@@ -24,15 +30,15 @@ class PlaylistActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setTheme(MainActivity.currentTheme[MainActivity.themeIndex])
-        setTheme(R.style.coolGreen)
+        setTheme(R.style.coolRed)
         binding = ActivityPlaylistBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
         // 设置 RecyclerView 的固定大小以及缓存的项数，以优化性能
         binding.playlistRV.setHasFixedSize(true)
         binding.playlistRV.setItemViewCacheSize(13)
         // 设置 RecyclerView 的布局管理器为线性布局管理器
-        binding.playlistRV.layoutManager = LinearLayoutManager(this@PlaylistActivity)
+        binding.playlistRV.layoutManager = GridLayoutManager(this@PlaylistActivity,2)
         // 创建 MusicAdapter 实例，并传入 MainActivity 和音乐列表作为参数
         adapter = PlaylistViewAdapter(this, playlistList = musicPlaylist.ref)
 
@@ -40,6 +46,22 @@ class PlaylistActivity : AppCompatActivity() {
         binding.playlistRV.adapter = adapter
 
         binding.addPlaylistBtn.setOnClickListener { customAlertDialog() }
+
+        val decoration: ItemDecoration = object : ItemDecoration() {
+            override fun getItemOffsets(
+                outRect: Rect,
+                view: View,
+                parent: RecyclerView,
+                state: RecyclerView.State
+            ) {
+                super.getItemOffsets(outRect, view, parent, state)
+                outRect.right = 0
+                outRect.left = 38
+                outRect.top = 10
+                outRect.bottom = 10
+            }
+        }
+        binding.playlistRV.addItemDecoration(decoration)
     }
 
     private fun customAlertDialog() {

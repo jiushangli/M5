@@ -1,91 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
+        <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card"
+            style="@style/Widget.Material3.CardView.Elevated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/android_green">
 
-<!--
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="15dp"
-    app:strokeColor="@color/blue"
-    app:strokeWidth="2dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:layout_marginTop="5dp"
-        android:id="@+id/playlistImg"
-        android:layout_width="170dp"
-        android:layout_height="130dp"
-        android:src="@drawable/music_player"
-        app:shapeAppearanceOverlay="@style/curved" />
-
-    <TextView
-        android:id="@+id/playlistName"
-        android:layout_width="130dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="130dp"
-        android:ellipsize="marquee"
-        android:gravity="center"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:singleLine="true"
-        android:text="@string/playlist_name"
-        android:textColor="@color/black"
-        android:textSize="18sp" />
+                <!-- Media -->
+                <com.google.android.material.card.MaterialCardView
+                    style="Widget.Material3.CardView.Filled"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/android_green">
+                    <ImageView
+                        android:id="@+id/playlistImg"
+                        android:layout_width="170dp"
+                        android:layout_height="160dp"
+                        android:background="@drawable/rounded_background"
+                        android:scaleType="centerCrop"
+                        app:srcCompat="@drawable/yqhy" />
+                </com.google.android.material.card.MaterialCardView>
 
 
-</com.google.android.material.card.MaterialCardView>-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginHorizontal="18dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="12dp">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="5dp"
-    android:padding="2dp">
+                    <!-- Title, secondary and supporting text -->
+                    <TextView
+                        android:id="@+id/playlistName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/playlist_name"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/playlistImg"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="5dp"
-        android:src="@mipmap/music_player_icon"
-        app:shapeAppearanceOverlay="@style/curved_photo" />
+                    <TextView
+                        android:id="@+id/playlistSongNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/playlistSongNum"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        />
 
-    <TextView
-        android:id="@+id/playlistName"
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_marginStart="5dp"
-        android:layout_toStartOf="@+id/moreInfoMV"
-        android:layout_toEndOf="@id/playlistImg"
-        android:gravity="center_vertical"
-        android:singleLine="true"
-        android:text="@string/song_name"
-        android:textColor="@color/black"
-        android:textStyle="bold" />
+                </LinearLayout>
 
-    <TextView
-        android:id="@+id/songAlbumMV"
-        android:layout_width="wrap_content"
-        android:layout_height="18dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="24dp"
-        android:layout_toStartOf="@+id/moreInfoMV"
-        android:layout_toEndOf="@id/playlistImg"
-        android:text="@string/song_album"
-        android:gravity="center_vertical"
-        android:singleLine="true"
-        android:textSize="12sp"
-        android:textStyle="bold" />
+            </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/moreInfoMV"
-        android:layout_width="40dp"
+        </com.google.android.material.card.MaterialCardView>
+
+    <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:backgroundTint="@android:color/transparent"
-        android:contentDescription="@string/back_btn"
-        android:padding="5dp"
-        android:layout_alignParentEnd="true"
-        android:src="@drawable/more_icon"
-        app:tint="@color/mask_green" />
+        android:layout_margin="2dp"
+        android:paddingStart="10dp">
 
-</RelativeLayout>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/playlistImg"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="5dp"
+            android:src="@mipmap/music_player_icon"
+            app:shapeAppearanceOverlay="@style/curved_photo" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/moreInfoPV"
+            android:layout_toEndOf="@id/playlistImg"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/playlistName"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginStart="10dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="@string/playlist_name"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/playlistSongNum"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:layout_marginStart="10dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="@string/playlistSongNum"
+                android:textSize="10sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/moreInfoPV"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:backgroundTint="@android:color/transparent"
+            android:contentDescription="@string/back_btn"
+            android:padding="5dp"
+            android:src="@drawable/more_icon"
+            app:tint="@color/Gradient_white" />
+
+    </RelativeLayout>-->

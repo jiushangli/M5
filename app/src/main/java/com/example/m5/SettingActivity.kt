@@ -1,5 +1,6 @@
 package com.example.m5
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,7 @@ class SettingActivity : AppCompatActivity() {
         setTheme(R.style.leaves)
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
+//        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
         supportActionBar?.title = "设置"
         when (MainActivity.themeIndex) {
             0 -> binding.coolCyanTheme.setBackgroundColor(Color.WHITE)
@@ -21,30 +23,48 @@ class SettingActivity : AppCompatActivity() {
             4 -> binding.coolBlackTheme.setBackgroundColor(Color.WHITE)
         }
 
-        binding.coolCyanTheme.setOnClickListener { saveTheme(0) }
+        binding.coolGreenTheme.setOnClickListener { saveTheme(0) }
         binding.coolRedTheme.setOnClickListener { saveTheme(1) }
-        binding.coolGreenTheme.setOnClickListener { saveTheme(2) }
+        binding.coolCyanTheme.setOnClickListener { saveTheme(2) }
         binding.coolBlueTheme.setOnClickListener { saveTheme(3) }
         binding.coolBlackTheme.setOnClickListener { saveTheme(4) }
+
+        binding.navAbout.setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    AboutActivity::class.java
+                ).setAction("your.custom.action")
+            )
+        }
+        binding.navFeedback.setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    FeedbackActivity::class.java
+                ).setAction("your.custom.action")
+            )
+        }
+
 //        binding.versionName.text = setVersionDetails()
         //用于排序到时候用得上
-/*        binding.sortBtn.setOnClickListener {
-            val menuList = arrayOf("最近添加", "按名称排序", "按时长排序")
-            var currentSort = MainActivity.sortOrder
+        /*        binding.sortBtn.setOnClickListener {
+                    val menuList = arrayOf("最近添加", "按名称排序", "按时长排序")
+                    var currentSort = MainActivity.sortOrder
 
-            val builder = MaterialAlertDialogBuilder(this)
-            builder.setTitle("Sorting")
-                .setPositiveButton("OK") { _, _ ->
-                    val editor = getSharedPreferences("SORTING", MODE_PRIVATE).edit()
-                    editor.putInt("sortOrder", currentSort)
-                    editor.apply()
-                }
-                .setSingleChoiceItems(menuList, currentSort) { _, which ->
-                    currentSort = which
-                }
-            val customDialog = builder.create()
-            customDialog.show()
-        }*/
+                    val builder = MaterialAlertDialogBuilder(this)
+                    builder.setTitle("Sorting")
+                        .setPositiveButton("OK") { _, _ ->
+                            val editor = getSharedPreferences("SORTING", MODE_PRIVATE).edit()
+                            editor.putInt("sortOrder", currentSort)
+                            editor.apply()
+                        }
+                        .setSingleChoiceItems(menuList, currentSort) { _, which ->
+                            currentSort = which
+                        }
+                    val customDialog = builder.create()
+                    customDialog.show()
+                }*/
     }
 
     private fun saveTheme(index: Int) {
@@ -52,8 +72,19 @@ class SettingActivity : AppCompatActivity() {
             val editor = getSharedPreferences("THEMES", MODE_PRIVATE).edit()
             editor.putInt("themeIndex", index)
             editor.apply()
-            //直接重启应用颜色
-            exitApplication()
+            startActivity(
+                Intent(
+                    this,
+                    MainActivity::class.java
+                ).setAction("your.custom.action")
+            )
+        }else{
+            startActivity(
+                Intent(
+                    this,
+                    MainActivity::class.java
+                ).setAction("your.custom.action")
+            )
         }
     }
 

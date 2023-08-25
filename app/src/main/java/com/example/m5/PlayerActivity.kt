@@ -25,7 +25,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCompletionListener {
     companion object {
-        var musicListPA = ArrayList<Music>()
+        lateinit var musicListPA : ArrayList<Music>
         var songPosition: Int = 0
 
         //?的含义是可以为空,!的含义是非空断言,!!的含义是非空断言,如果为空就抛出异常
@@ -45,26 +45,29 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.coolWhite)
+        setTheme(R.style.coolBlue)
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
+//        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
         if (intent.data?.scheme.contentEquals("content")) {
             val intentService = Intent(this, MusicService::class.java)
             //绑定服务,其中BIND_AUTO_CREATE表示在Activity和Service建立关联后自动创建Service
             bindService(intentService, this, BIND_AUTO_CREATE)
             startService(intentService)
             musicListPA = ArrayList()
+
             musicListPA.add(getMusicDetails(intent.data!!))
+
             Glide.with(this)
                 .load(getImgArt(musicListPA[songPosition].path))
-                .apply(RequestOptions().placeholder(R.drawable.music_player).centerCrop())
+                .apply(RequestOptions().placeholder(R.drawable.moni1).centerCrop())
                 .into(binding.songImgPA)
             binding.songNamePA.text = musicListPA[songPosition].title
             binding.artistPA.text = musicListPA[songPosition].artist
-
         } else
             initializeLayout()
 
+        //绑定播放按钮
         binding.playPauseBtnPA.setOnClickListener() {
             if (isPlaying) {
                 pauseMusic()
@@ -72,12 +75,14 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
                 playMusic()
             }
         }
+        //上下一首
         binding.previousBtnPA.setOnClickListener() {
             preNextSong(false)
         }
         binding.nextBtnPA.setOnClickListener() {
             preNextSong(true)
         }
+        //进度条
         binding.seekBarPA.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) musicService!!.mediaPlayer!!.seekTo(progress)
@@ -96,21 +101,22 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
                 binding.repeatBtnPA.setImageResource(R.drawable.repeat_icon)
             }
         }
- /*       binding.equalizerBtnPA.setOnClickListener {
-            try {
-                val eqIntent = Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL)
-                eqIntent.putExtra(
-                    AudioEffect.EXTRA_AUDIO_SESSION,
-                    musicService!!.mediaPlayer!!.audioSessionId
-                )
-                eqIntent.putExtra(AudioEffect.EXTRA_PACKAGE_NAME, baseContext.packageName)
-                eqIntent.putExtra(AudioEffect.EXTRA_CONTENT_TYPE, AudioEffect.CONTENT_TYPE_MUSIC)
-                startActivityForResult(eqIntent, 13)
-            } catch (e: Exception) {
-                Toast.makeText(this, "似乎不支持音效", Toast.LENGTH_SHORT).show()
-                e.printStackTrace()
-            }
-        }*/
+        /*       binding.equalizerBtnPA.setOnClickListener {
+                   try {
+                       val eqIntent = Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL)
+                       eqIntent.putExtra(
+                           AudioEffect.EXTRA_AUDIO_SESSION,
+                           musicService!!.mediaPlayer!!.audioSessionId
+                       )
+                       eqIntent.putExtra(AudioEffect.EXTRA_PACKAGE_NAME, baseContext.packageName)
+                       eqIntent.putExtra(AudioEffect.EXTRA_CONTENT_TYPE, AudioEffect.CONTENT_TYPE_MUSIC)
+                       startActivityForResult(eqIntent, 13)
+                   } catch (e: Exception) {
+                       Toast.makeText(this, "似乎不支持音效", Toast.LENGTH_SHORT).show()
+                       e.printStackTrace()
+                   }
+               }*/
+        //倒计时
         binding.timerBtnPA.setOnClickListener {
             val timer = min15 || min30 || min60
             //如果没有设置定时器,就弹出设置定时器的界面
@@ -121,7 +127,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
                 val builder = MaterialAlertDialogBuilder(this)
                 builder.setTitle("取消定时")
                     .setMessage("你希望取消定时吗?")
-                    .setPositiveButton("那是自然") { _, _ ->
+                    .setPositiveButton("当然") { _, _ ->
                         min15 = false
                         min30 = false
                         min60 = false
@@ -182,9 +188,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
                 artUri = "Unknown"
             )
         } finally {
-
         }
-
     }
 
     //填充界面的图片以及歌曲名称
@@ -192,7 +196,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         fIndex = favouriteChecker(musicListPA[songPosition].id)
         Glide.with(this)
             .load(musicListPA[songPosition].artUri)
-            .apply(RequestOptions().placeholder(R.drawable.music_player).centerCrop())
+            .apply(RequestOptions().placeholder(R.drawable.moni1).centerCrop())
             .into(binding.songImgPA)
         binding.songNamePA.text = musicListPA[songPosition].title
         binding.artistPA.text = musicListPA[songPosition].artist
@@ -210,7 +214,6 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         try {
             //如果为空就创建一个,在什么时候为空呢,在第一次进入的时候为空
             if (musicService!!.mediaPlayer == null) musicService!!.mediaPlayer = MediaPlayer()
-            //这里的!!代表非空断言
             //这里在设置播放器
             musicService!!.mediaPlayer!!.reset()
             musicService!!.mediaPlayer!!.setDataSource(musicListPA[songPosition].path)
@@ -297,6 +300,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
                 musicListPA.addAll(MainActivity.MusicListMA)
                 musicListPA.shuffle()
                 setLayout()
+//                playMusic()
             }
 
             "FavouriteShuffle" -> {
@@ -309,6 +313,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
                 musicListPA.addAll(FavouriteActivity.favouriteSongs)
                 musicListPA.shuffle()
                 setLayout()
+//                playMusic()
             }
 
             "PlaylistDetailsAdapter" -> {
@@ -440,4 +445,15 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         super.onDestroy()
         if (musicListPA[songPosition].id == "Unknown" && !isPlaying) exitApplication()
     }
+    private fun initServiceAndPlaylist(playlist: ArrayList<Music>, shuffle: Boolean, playNext: Boolean = false){
+        val intent = Intent(this, MusicService::class.java)
+        bindService(intent, this, BIND_AUTO_CREATE)
+        startService(intent)
+        musicListPA = ArrayList()
+        musicListPA.addAll(playlist)
+        if(shuffle) musicListPA.shuffle()
+        setLayout()
+//        if(!playNext) PlayNext.playNextList = ArrayList()
+    }
+
 }

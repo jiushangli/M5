@@ -17,37 +17,53 @@
     <style name="coolGreen" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">#eeeeee</item>
-        <item name="themeColor">@color/mask_green</item>
-        <item name="android:statusBarColor">?attr/themeColor</item>
-    </style>
-
-    <style name="coolBlue" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="colorPrimary">#eeeeee</item>
-        <item name="themeColor">@color/cool_blue</item>
-        <item name="android:statusBarColor">?attr/themeColor</item>
+        <item name="themeColor">@color/cool_green</item>
+        <item name="android:statusBarColor">#eeeeee</item>
     </style>
 
     <style name="coolRed" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">#eeeeee</item>
         <item name="themeColor">@color/cool_red</item>
-        <item name="android:statusBarColor">?attr/themeColor</item>
+        <item name="android:statusBarColor">#eeeeee</item>
     </style>
 
-    <style name="coolWhite" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="coolCyan" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">#eeeeee</item>
-        <item name="themeColor">@color/cool_white</item>
-        <item name="android:statusBarColor">?attr/themeColor</item>
+        <item name="themeColor">@color/mask_cyan</item>
+        <item name="android:statusBarColor">#eeeeee</item>
+    </style>
+
+    <style name="coolBlue" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">#eeeeee</item>
+        <item name="themeColor">@color/blue</item>
+        <item name="android:statusBarColor">#eeeeee</item>
     </style>
 
     <style name="coolBlack" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">#eeeeee</item>
         <item name="themeColor">@color/black</item>
-        <item name="android:statusBarColor">?attr/themeColor</item>
+        <item name="android:statusBarColor">#eeeeee</item>
     </style>
 
 
+    <style name="Theme.App" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorSecondary">@color/mask_pink</item>
+        <item name="colorSurface">@color/mask_pink</item>
+        <item name="colorOnSurfaceVariant">@color/mask_pink</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
+    </style>
+
+    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="SeekBarStyle" parent="Widget.AppCompat.SeekBar">
+        <item name="android:progressTint">@color/cool_green</item> <!-- 设置进度条颜色为红色 -->
+        <item name="android:thumbTint">@color/cool_green</item> <!-- 设置拇指按钮颜色为绿色 -->
+    </style>
 </resources>

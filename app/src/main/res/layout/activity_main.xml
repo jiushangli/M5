@@ -30,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:tint="@color/mask_cyan"
+                    app:tint="@color/cool_green"
                     android:src="@drawable/music_icon" />
 
                 <ImageButton
@@ -76,7 +76,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@drawable/settings_icon"
-                    app:tint="@color/mask_cyan" />
+                    app:tint="?attr/themeColor" />
 
                 <ImageButton
                     android:id="@+id/playlistBtn"
@@ -85,7 +85,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@drawable/playlist_icon"
-                    app:tint="@color/mask_cyan" />
+                    app:tint="?attr/themeColor" />
 
                 <ImageButton
                     android:id="@+id/favouriteBtn"
@@ -94,7 +94,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@drawable/favourite_icon"
-                    app:tint="@color/mask_cyan" />
+                    app:tint="?attr/themeColor" />
 
                 <ImageButton
                     android:id="@+id/shuffleBtn"
@@ -103,7 +103,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@drawable/shuffle_icon"
-                    app:tint="@color/mask_cyan" />
+                    app:tint="?attr/themeColor" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -111,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="10dp"
-                android:paddingBottom="50dp"
+                android:paddingBottom="58dp"
                 android:scrollbarThumbVertical="@drawable/scroll_bar_icon"
                 android:scrollbars="vertical" />
         </LinearLayout>
@@ -129,6 +129,5 @@
             tools:layout="@layout/fragment_now_playing" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.drawerlayout.widget.DrawerLayout>

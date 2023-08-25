@@ -22,45 +22,77 @@ class NowPlaying : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        requireContext().theme.applyStyle(MainActivity.currentTheme[MainActivity.themeIndex],true)
+        requireContext().theme.applyStyle(MainActivity.currentTheme[MainActivity.themeIndex], true)
         val view = inflater.inflate(R.layout.fragment_now_playing, container, false)
         binding = FragmentNowPlayingBinding.bind(view)
         binding.root.visibility = View.INVISIBLE
         binding.playPauseBtnNP.setOnClickListener {
-            if (PlayerActivity.isPlaying) pauseMusic()
-            else playMusic()
+            if (PlayerActivity.musicService != null) {
+                if (PlayerActivity.isPlaying) pauseMusic()
+                else playMusic()
+            }
         }
         binding.nextBtnNP.setOnClickListener {
-            setSongPosition(increment = true)
-            PlayerActivity.musicService!!.createMediaPlayer()
+            if (PlayerActivity.musicService != null) {
+                setSongPosition(increment = true)
+                PlayerActivity.musicService!!.createMediaPlayer()
 
-            Glide.with(this)
-                .load(PlayerActivity.musicListPA[PlayerActivity.songPosition].artUri)
-                .apply(RequestOptions().placeholder(R.drawable.music_player).centerCrop())
-                .into(binding.songImgNP)
-            binding.songNameNP.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].title
-            binding.artistNP.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].artist
-            PlayerActivity.musicService!!.showNotification(R.drawable.pause_icon)
-            playMusic()
+                Glide.with(this)
+                    .load(PlayerActivity.musicListPA[PlayerActivity.songPosition].artUri)
+                    .apply(RequestOptions().placeholder(R.drawable.yqhy).centerCrop())
+                    .into(binding.songImgNP)
+                binding.songNameNP.text =
+                    PlayerActivity.musicListPA[PlayerActivity.songPosition].title
+                binding.artistNP.text =
+                    PlayerActivity.musicListPA[PlayerActivity.songPosition].artist
+                PlayerActivity.musicService!!.showNotification(R.drawable.pause_icon)
+                playMusic()
+            }
         }
-        binding.root.setOnClickListener{
-            val intent = Intent(requireContext(), PlayerActivity::class.java).setAction("your.custom.action")
-            intent.putExtra("index", PlayerActivity.songPosition)
-            intent.putExtra("class", "NowPlaying")
-            ContextCompat.startActivity(requireContext(), intent, null)
+
+        binding.preBtnNP.setOnClickListener {
+            if (PlayerActivity.musicService != null) {
+                setSongPosition(increment = false)
+                PlayerActivity.musicService!!.createMediaPlayer()
+
+                Glide.with(this)
+                    .load(PlayerActivity.musicListPA[PlayerActivity.songPosition].artUri)
+                    .apply(RequestOptions().placeholder(R.drawable.yqhy).centerCrop())
+                    .into(binding.songImgNP)
+                binding.songNameNP.text =
+                    PlayerActivity.musicListPA[PlayerActivity.songPosition].title
+                binding.artistNP.text =
+                    PlayerActivity.musicListPA[PlayerActivity.songPosition].artist
+                PlayerActivity.musicService!!.showNotification(R.drawable.pause_icon)
+                playMusic()
+            }
+        }
+
+
+        binding.root.setOnClickListener {
+            if (PlayerActivity.musicService != null) {
+                val intent =
+                    Intent(
+                        requireContext(),
+                        PlayerActivity::class.java
+                    ).setAction("your.custom.action")
+                intent.putExtra("index", PlayerActivity.songPosition)
+                intent.putExtra("class", "NowPlaying")
+                ContextCompat.startActivity(requireContext(), intent, null)
+            }
         }
         return view
     }
 
     override fun onResume() {
         super.onResume()
+        binding.root.visibility = View.VISIBLE
 
         if (PlayerActivity.musicService != null) {
-            binding.root.visibility = View.VISIBLE
             binding.songNameNP.isSelected = true
             Glide.with(this)
                 .load(PlayerActivity.musicListPA[PlayerActivity.songPosition].artUri)
-                .apply(RequestOptions().placeholder(R.drawable.music_player).centerCrop())
+                .apply(RequestOptions().placeholder(R.drawable.yqhy).centerCrop())
                 .into(binding.songImgNP)
             binding.songNameNP.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].title
             binding.artistNP.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].artist

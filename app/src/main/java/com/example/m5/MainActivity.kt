@@ -8,9 +8,9 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.Menu
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
@@ -24,7 +24,6 @@ import java.io.File
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var musicAdapter: MusicAdapter
 
     companion object {
@@ -33,13 +32,12 @@ class MainActivity : AppCompatActivity() {
         var search: Boolean = false
         var themeIndex: Int = 2
         val currentTheme = arrayOf(
-            R.style.coolWhite,
-            R.style.coolRed,
             R.style.coolGreen,
+            R.style.coolRed,
+            R.style.coolCyan,
             R.style.coolBlue,
             R.style.coolBlack
         )
-        val currentGradient = arrayOf(R.drawable.gradient_green)
         var sortOrder: Int = 0
         val sortingList = arrayOf(
             MediaStore.Audio.Media.DATE_ADDED + " DESC", MediaStore.Audio.Media.TITLE + " DESC",
@@ -51,26 +49,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val themeEditor = getSharedPreferences("THEMES", MODE_PRIVATE)
-        //调用 getInt 方法从 SharedPreferences 中获取名为 "themeIndex" 的整数值
-        //如果 "themeIndex" 键不存在，则返回默认值 0
         themeIndex = themeEditor.getInt("themeIndex", 0)
-
-        setTheme(R.style.coolBlue)
+        setTheme(currentTheme[themeIndex])
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-//         创建 ActionBarDrawerToggle 对象，将其与 DrawerLayout 相关联
-        toggle = ActionBarDrawerToggle(this, binding.root, R.string.open, R.string.close)
-        // 将 ActionBarDrawerToggle 添加为 DrawerLayout 的侧滑菜单监听器
-        binding.root.addDrawerListener(toggle)
-        // 同步 ActionBarDrawerToggle 的状态
-        toggle.syncState()
-        // 启用导航按钮作为操作栏的一部分
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
 
         if (requestRuntimePermission()) {
-
             initializeLayout()
 
             //通过缓存得到音乐列表以及喜欢的音乐
@@ -92,10 +77,8 @@ class MainActivity : AppCompatActivity() {
                     GsonBuilder().create().fromJson(jsonStringPlaylist, MusicPlaylist::class.java)
                 PlaylistActivity.musicPlaylist = dataPlaylist
             }
-
         }
 
-        //给设置按钮的绑定事件
         //从设置按钮跳到设置界面
         binding.setBtn.setOnClickListener {
             startActivity(
@@ -106,7 +89,6 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        //给随机播放按钮的绑定事件
         //从随机播放按钮跳到播放界面,并用intent带去一些远方的信息
         binding.shuffleBtn.setOnClickListener {
             val intent = Intent(
@@ -119,7 +101,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //给喜欢按钮的绑定事件
         //从喜欢按钮跳到喜欢的音乐列表
         binding.favouriteBtn.setOnClickListener {
             startActivity(
@@ -130,7 +111,6 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        //给播放列表按钮的绑定事件
         //从播放列表按钮跳到播放列表
         binding.playlistBtn.setOnClickListener {
             startActivity(
@@ -140,54 +120,6 @@ class MainActivity : AppCompatActivity() {
                 ).setAction("your.custom.action")
             )
         }
-
-        //给左边已经打开后的东西设置绑定事件
-  /*      binding.navView.setNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.navFeedback -> {
-                    startActivity(
-                        Intent(
-                            this@MainActivity,
-                            FeedbackActivity::class.java
-                        ).setAction("your.custom.action")
-                    )
-                }
-
-                R.id.navSettings -> {
-                    startActivity(
-                        Intent(
-                            this@MainActivity,
-                            SettingActivity::class.java
-                        ).setAction("your.custom.action")
-                    )
-                }
-
-                R.id.navAbout -> {
-                    startActivity(
-                        Intent(
-                            this@MainActivity,
-                            AboutActivity::class.java
-                        ).setAction("your.custom.action")
-                    )
-                }
-
-                R.id.navExit -> {
-                    val builder = MaterialAlertDialogBuilder(this)
-                    builder.setTitle("天涯各自远")
-                        .setMessage("你想要离开吗?")
-                        .setPositiveButton("我意已决") { _, _ ->
-                            exitApplication()
-                        }
-                        .setNegativeButton("回头是岸") { dialog, _ ->
-                            dialog.dismiss()
-                        }
-                    val customDialog = builder.create()
-                    customDialog.show()
-//                    customDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLUE)
-                }
-            }
-            true
-        }*/
     }
 
     //打开应用时获取权限的函数
@@ -226,7 +158,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
-    //这是一个回调函数吗?答案是:是的
+    //这是一个回调函数
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -246,20 +178,6 @@ class MainActivity : AppCompatActivity() {
                 )
         }
     }
-
-    //当用户点击操作栏上的菜单项时，它会检查是否点击了抽屉菜单的开关图标
-    // 如果是，则展开或关闭抽屉菜单；如果不是，则将事件传递给父类处理
-/*    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        if (toggle.onOptionsItemSelected(item)) {
-
-            val window = window
-            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
-            actionBar?.hide()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }*/
 
     //界面初始化函数
     @RequiresApi(Build.VERSION_CODES.R)
@@ -339,6 +257,7 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         if (!PlayerActivity.isPlaying && PlayerActivity.musicService != null) {
+//            exitProcess(1)
             exitApplication()
         }
     }
@@ -364,9 +283,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.search_view_menu, menu)
-        //渐变处理
-//        findViewById<LinearLayout>(R.id.linearLayoutNav)?.setBackgroundResource(currentGradient[themeIndex])
-
         val searchView = menu?.findItem(R.id.searchView)?.actionView as SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean = true

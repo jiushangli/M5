@@ -18,6 +18,7 @@ class FavouriteAdapter(private val context: Context, private var musicList: Arra
         val name = binding.songNameFV
         val artist = binding.songArtistFV
         val root = binding.root
+        val duration = binding.songDuration
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteAdapter.MyHolder {
@@ -27,6 +28,7 @@ class FavouriteAdapter(private val context: Context, private var musicList: Arra
     override fun onBindViewHolder(holder: FavouriteAdapter.MyHolder, position: Int) {
         holder.name.text = musicList[position].title
         holder.artist.text = musicList[position].artist
+        holder.duration.text = formatDuration(musicList[position].duration)
         Glide.with(context)
             .load(musicList[position].artUri)
             .apply(RequestOptions().placeholder(R.drawable.music_player).centerCrop())

@@ -22,4 +22,6 @@
     <color name="black">#131D1C</color>
 
     <color name="Golden_yellow">#ffecb3</color>
+    <color name="Gradient_white">#e9dbc6</color>
+    <color name="android_green">#d9e7cb</color>
 </resources>

@@ -11,13 +11,13 @@ class AboutActivity : AppCompatActivity() {
         setTheme(R.style.coolBlue)
         binding = ActivityAboutBinding.inflate(layoutInflater)
         setContentView(binding.root)
+//        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
         supportActionBar?.title = "关于"
         binding.aboutText.text = aboutText()
     }
 
     private fun aboutText(): String {
-        return "这是一个简单的音乐播放器\n" +
-                "作者: 杨青花一\n"
+        return "这是一个简单而高贵的音乐播放器"
     }
 
 }

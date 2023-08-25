@@ -10,20 +10,20 @@
 
     <!--    第一行-->
     <LinearLayout
+        android:id="@+id/linearLayoutFA"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:gravity="center"
-        android:elevation="7dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/rounded_background"
-        android:orientation="horizontal">
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
         <Button
-            android:id="@+id/navFeedback"
+            android:id="@+id/navFA"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
+            android:elevation="4dp"
+            android:layout_marginHorizontal="40dp"
             android:background="@drawable/rounded_background"
             android:drawableLeft="@drawable/music_icon"
             android:text="@string/world_of_music"
@@ -42,13 +42,12 @@
         android:layout_marginTop="50dp"
         android:layout_marginBottom="20dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/music_player"
+        android:src="@drawable/moni1"
         app:layout_constraintBottom_toBottomOf="@+id/songInfoPA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:shapeAppearance="@style/curved" />
-
 
     <LinearLayout
         android:id="@+id/songInfoPA"
@@ -125,10 +124,11 @@
     <!--    进度条-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="60dp"
         android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/rounded_background"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/mask_cyan"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -147,6 +147,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            style="@style/SeekBarStyle"
             tools:ignore="NestedWeights" />
 
         <TextView
@@ -164,13 +165,13 @@
     <!--    最后四个控件-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="60dp"
         android:layout_gravity="bottom"
-        android:layout_marginVertical="9dp"
         android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="18dp"
         android:background="@drawable/rounded_background"
         android:gravity="center"
-        android:backgroundTint="@color/cool_red"
+        android:backgroundTint="@color/mask_pink"
         android:orientation="horizontal">
 
         <ImageButton

@@ -2,7 +2,7 @@ package com.example.m5
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.m5.databinding.ActivityFavouriteBinding
@@ -21,6 +21,7 @@ class FavouriteActivity : AppCompatActivity() {
         setTheme(R.style.coolRed)
         binding = ActivityFavouriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
         //检查并排除已经不存在的音乐
         favouriteSongs = checkPlaylist(favouriteSongs)
 
@@ -33,7 +34,6 @@ class FavouriteActivity : AppCompatActivity() {
 
         // 将 musicAdapter 设置为 musicRV 的适配器
         binding.favouriteRV.adapter = adapter
-        if (favouriteSongs.size == 0) binding.shuffleBtnFA.visibility = View.INVISIBLE
         binding.shuffleBtnFA.setOnClickListener {
             val intent = Intent(
                 this,

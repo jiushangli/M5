@@ -70,7 +70,7 @@ class MusicService : Service(), AudioManager.OnAudioFocusChangeListener {
         val image = if (imgArt != null) {
             BitmapFactory.decodeByteArray(imgArt, 0, imgArt.size)
         } else {
-            BitmapFactory.decodeResource(resources, R.drawable.music_player)
+            BitmapFactory.decodeResource(resources, R.drawable.moni1)
         }
 
         val notification =
@@ -87,11 +87,16 @@ class MusicService : Service(), AudioManager.OnAudioFocusChangeListener {
                 .setPriority(androidx.core.app.NotificationCompat.PRIORITY_HIGH)
                 .setVisibility(androidx.core.app.NotificationCompat.VISIBILITY_PUBLIC)
                 .setOnlyAlertOnce(true)
-                .addAction(R.drawable.previous_icon, "Previous", prevPendingIntent)
+                .addAction(R.drawable.ic_skip_previous, "Previous", prevPendingIntent)
                 .addAction(playPauseBtn, "Play", playPendingIntent)
-                .addAction(R.drawable.next_icon, "Next", nextPendingIntent)
-                .addAction(R.drawable.exit_icon, "Exit", exitPendingIntent)
+                .addAction(R.drawable.ic_skip_previous, "Next", nextPendingIntent)
                 .build()
+
+        /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
+            mediaSession.setMetadata(MediaMetadataCompat.Builder()
+                .putLong(Media))
+
+        }*/
 
         startForeground(13, notification)
     }
@@ -99,8 +104,8 @@ class MusicService : Service(), AudioManager.OnAudioFocusChangeListener {
     fun createMediaPlayer() {
         try {
             //如果为空就创建一个,在什么时候为空呢,在第一次进入的时候为空
-            if (PlayerActivity.musicService!!.mediaPlayer == null) PlayerActivity.musicService!!.mediaPlayer =
-                MediaPlayer()
+            if (PlayerActivity.musicService!!.mediaPlayer == null)
+                PlayerActivity.musicService!!.mediaPlayer = MediaPlayer()
             //这里的!!代表非空断言
             //这里在设置播放器
             PlayerActivity.musicService!!.mediaPlayer!!.reset()

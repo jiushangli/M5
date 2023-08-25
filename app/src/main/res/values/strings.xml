@@ -5,8 +5,8 @@
     <string name="playlist_btn">我的播放列表</string>
     <string name="total_songs">Total Songs</string>
     <string name="world_of_music">天涯何处觅知音</string>
-    <string name="song_name">song name</string>
-    <string name="artist_name">artist Name</string>
+    <string name="song_name">一曲肝肠断</string>
+    <string name="artist_name">轻羽此去莫留连</string>
     <string name="back_btn">Back</string>
     <string name="start_tv">00:00</string>
     <string name="end_tv">Loading…</string>
@@ -41,5 +41,6 @@
     <string name="sort_by">Sort By</string>
     <string name="version_name">Developed By杨青花一</string>
     <string name="author">BY 杨青花一</string>
+    <string name="playlistSongNum">5 首</string>
 
 </resources>
