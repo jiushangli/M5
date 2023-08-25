@@ -11,7 +11,9 @@ import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
+import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
+import android.support.v4.media.session.PlaybackStateCompat
 
 class MusicService : Service(), AudioManager.OnAudioFocusChangeListener {
     private var myBinder = MyBinder()
@@ -35,7 +37,7 @@ class MusicService : Service(), AudioManager.OnAudioFocusChangeListener {
         }
     }
 
-    fun showNotification(playPauseBtn: Int) {
+    fun showNotification(playPauseBtn: Int, playbackSpeed: Float) {
         val intent = Intent(baseContext, MainActivity::class.java)
         intent.putExtra("index", PlayerActivity.songPosition)
         intent.putExtra("class", "NowPlaying")
@@ -89,15 +91,25 @@ class MusicService : Service(), AudioManager.OnAudioFocusChangeListener {
                 .setOnlyAlertOnce(true)
                 .addAction(R.drawable.ic_skip_previous, "Previous", prevPendingIntent)
                 .addAction(playPauseBtn, "Play", playPendingIntent)
-                .addAction(R.drawable.ic_skip_previous, "Next", nextPendingIntent)
+                .addAction(R.drawable.ic_skip_next, "Next", nextPendingIntent)
                 .build()
 
-        /*if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
-            mediaSession.setMetadata(MediaMetadataCompat.Builder()
-                .putLong(Media))
-
-        }*/
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            mediaSession.setMetadata(
+                MediaMetadataCompat.Builder()
+                    .putLong(
+                        MediaMetadataCompat.METADATA_KEY_DURATION,
+                        mediaPlayer!!.duration.toLong()
+                    )
+                    .build()
+            )
+            mediaSession.setPlaybackState(
+                PlaybackStateCompat.Builder()
+                    .setState(PlaybackStateCompat.STATE_PLAYING,mediaPlayer!!.currentPosition.toLong(),playbackSpeed)
+                    .setActions(PlaybackStateCompat.ACTION_SEEK_TO)
+                    .build()
+            )
+        }
         startForeground(13, notification)
     }
 
@@ -113,7 +125,8 @@ class MusicService : Service(), AudioManager.OnAudioFocusChangeListener {
             PlayerActivity.musicService!!.mediaPlayer!!.prepare()
             //替换播放按钮
             PlayerActivity.binding.playPauseBtnPA.setBackgroundResource(R.drawable.pause_icon)
-            PlayerActivity.musicService!!.showNotification(if (PlayerActivity.isPlaying) R.drawable.pause_icon else R.drawable.play_icon)
+            PlayerActivity.musicService!!.showNotification(if
+                    (PlayerActivity.isPlaying) R.drawable.pause_icon else R.drawable.play_icon,0F)
             //这是进度条两端的文字时间进度
             PlayerActivity.binding.tvSeekBarStart.text =
                 formatDuration(mediaPlayer!!.currentPosition.toLong())
@@ -145,14 +158,14 @@ class MusicService : Service(), AudioManager.OnAudioFocusChangeListener {
             //暂停音乐
             PlayerActivity.binding.playPauseBtnPA.setBackgroundResource(R.drawable.play_icon)
             NowPlaying.binding.playPauseBtnNP.setImageResource(R.drawable.play_icon)
-            showNotification(R.drawable.play_icon)
+            showNotification(R.drawable.play_icon,0F)
             PlayerActivity.isPlaying = false
             mediaPlayer!!.pause()
         } else {
             //继续音乐
             PlayerActivity.binding.playPauseBtnPA.setBackgroundResource(R.drawable.ic_pause)
             NowPlaying.binding.playPauseBtnNP.setImageResource(R.drawable.pause_icon)
-            showNotification(R.drawable.pause_icon)
+            showNotification(R.drawable.pause_icon,1F)
             PlayerActivity.isPlaying = true
             mediaPlayer!!.start()
         }

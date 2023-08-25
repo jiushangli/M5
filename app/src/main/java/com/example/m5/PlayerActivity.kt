@@ -222,7 +222,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             isPlaying = true
             //替换播放按钮
             binding.playPauseBtnPA.setBackgroundResource(R.drawable.pause_icon)
-            musicService!!.showNotification(if (isPlaying) R.drawable.pause_icon else R.drawable.play_icon)
+            musicService!!.showNotification(if (isPlaying) R.drawable.pause_icon else R.drawable.play_icon,1F)
             //这是进度条两端的文字时间进度
             binding.tvSeekBarStart.text =
                 formatDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())
@@ -343,14 +343,14 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
 
     private fun playMusic() {
         binding.playPauseBtnPA.setImageResource(R.drawable.pause_icon)
-        musicService!!.showNotification(R.drawable.pause_icon)
+        musicService!!.showNotification(R.drawable.pause_icon,1F)
         isPlaying = true
         musicService!!.mediaPlayer!!.start()
     }
 
     private fun pauseMusic() {
         binding.playPauseBtnPA.setImageResource(R.drawable.play_icon)
-        musicService!!.showNotification(R.drawable.play_icon)
+        musicService!!.showNotification(R.drawable.play_icon,0F)
         isPlaying = false
         musicService!!.mediaPlayer!!.pause()
     }
