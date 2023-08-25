@@ -113,36 +113,22 @@ class MusicService : Service(), AudioManager.OnAudioFocusChangeListener {
         startForeground(13, notification)
     }
 
-    fun createMediaPlayer() {
+
+    fun createMediaPlayer(){
         try {
-            //如果为空就创建一个,在什么时候为空呢,在第一次进入的时候为空
-            if (PlayerActivity.musicService!!.mediaPlayer == null)
-                PlayerActivity.musicService!!.mediaPlayer = MediaPlayer()
-            //这里的!!代表非空断言
-            //这里在设置播放器
-            PlayerActivity.musicService!!.mediaPlayer!!.reset()
-            PlayerActivity.musicService!!.mediaPlayer!!.setDataSource(PlayerActivity.musicListPA[PlayerActivity.songPosition].path)
-            PlayerActivity.musicService!!.mediaPlayer!!.prepare()
-            //替换播放按钮
-            PlayerActivity.binding.playPauseBtnPA.setBackgroundResource(R.drawable.pause_icon)
-            PlayerActivity.musicService!!.showNotification(if
-                    (PlayerActivity.isPlaying) R.drawable.pause_icon else R.drawable.play_icon,0F)
-            //这是进度条两端的文字时间进度
-            PlayerActivity.binding.tvSeekBarStart.text =
-                formatDuration(mediaPlayer!!.currentPosition.toLong())
-            PlayerActivity.binding.tvSeekBarEnd.text =
-                formatDuration(mediaPlayer!!.duration.toLong())
-            //这是进度条的小圆点
-            PlayerActivity.binding.seekBarPA.max = mediaPlayer!!.duration
+            if (mediaPlayer == null) mediaPlayer = MediaPlayer()
+            mediaPlayer!!.reset()
+            mediaPlayer!!.setDataSource(PlayerActivity.musicListPA[PlayerActivity.songPosition].path)
+            mediaPlayer!!.prepare()
+            PlayerActivity.binding.playPauseBtnPA.setImageResource(R.drawable.ic_pause)
+            showNotification(R.drawable.pause_icon,1F)
+            PlayerActivity.binding.tvSeekBarStart.text = formatDuration(mediaPlayer!!.currentPosition.toLong())
+            PlayerActivity.binding.tvSeekBarEnd.text = formatDuration(mediaPlayer!!.duration.toLong())
             PlayerActivity.binding.seekBarPA.progress = 0
+            PlayerActivity.binding.seekBarPA.max = mediaPlayer!!.duration
             PlayerActivity.nowPlayingId = PlayerActivity.musicListPA[PlayerActivity.songPosition].id
-
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return
-        }
+        }catch (e: Exception){return}
     }
-
     fun seekBarSetup() {
         runnable = Runnable {
             PlayerActivity.binding.tvSeekBarStart.text =
@@ -158,16 +144,23 @@ class MusicService : Service(), AudioManager.OnAudioFocusChangeListener {
             //暂停音乐
             PlayerActivity.binding.playPauseBtnPA.setBackgroundResource(R.drawable.play_icon)
             NowPlaying.binding.playPauseBtnNP.setImageResource(R.drawable.play_icon)
-            showNotification(R.drawable.play_icon,0F)
             PlayerActivity.isPlaying = false
             mediaPlayer!!.pause()
-        } else {
+            showNotification(R.drawable.play_icon,0F)
+
+        }
+        /*else {
             //继续音乐
             PlayerActivity.binding.playPauseBtnPA.setBackgroundResource(R.drawable.ic_pause)
             NowPlaying.binding.playPauseBtnNP.setImageResource(R.drawable.pause_icon)
             showNotification(R.drawable.pause_icon,1F)
             PlayerActivity.isPlaying = true
             mediaPlayer!!.start()
-        }
+        }*/
+    }
+
+    //for making persistent
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        return START_STICKY
     }
 }

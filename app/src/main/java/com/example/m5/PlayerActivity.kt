@@ -2,7 +2,6 @@ package com.example.m5
 
 import android.annotation.SuppressLint
 import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
 import android.database.Cursor
@@ -49,6 +48,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 //        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
+
         if (intent.data?.scheme.contentEquals("content")) {
             val intentService = Intent(this, MusicService::class.java)
             //绑定服务,其中BIND_AUTO_CREATE表示在Activity和Service建立关联后自动创建Service
@@ -166,6 +166,20 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
                 FavouriteActivity.favouriteSongs.add(musicListPA[songPosition])
             }
         }
+
+        binding.favouriteBtnPA.setOnClickListener {
+            fIndex = favouriteChecker(musicListPA[songPosition].id)
+            if(isFavourite){
+                isFavourite = false
+                binding.favouriteBtnPA.setImageResource(R.drawable.favourite_empty_icon)
+                FavouriteActivity.favouriteSongs.removeAt(fIndex)
+            } else{
+                isFavourite = true
+                binding.favouriteBtnPA.setImageResource(R.drawable.favourite_icon)
+                FavouriteActivity.favouriteSongs.add(musicListPA[songPosition])
+            }
+            FavouriteActivity.favouritesChanged = true
+        }
     }
 
     private fun getMusicDetails(contentUri: Uri): Music {
@@ -244,100 +258,25 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         //获取传递过来的数据,其中index为歌曲在列表中的位置,默认为0
         songPosition = intent.getIntExtra("index", 0)
         //获取传递过来的数据,其中class为传递过来的类名
-        when (intent.getStringExtra("class")) {
-            "FavouriteAdapter" -> {
-                val intent = Intent(this, MusicService::class.java)
-                //绑定服务,其中BIND_AUTO_CREATE表示在Activity和Service建立关联后自动创建Service
-                bindService(intent, this, BIND_AUTO_CREATE)
-                startService(intent)
-                musicListPA = ArrayList()
-                musicListPA.addAll(FavouriteActivity.favouriteSongs)
+        when(intent.getStringExtra("class")){
+            "NowPlaying"->{
                 setLayout()
-            }
-
-            "NowPlaying" -> {
-                setLayout()
-                binding.tvSeekBarStart.text =
-                    formatDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())
-                binding.tvSeekBarEnd.text =
-                    formatDuration(musicService!!.mediaPlayer!!.duration.toLong())
+                binding.tvSeekBarStart.text = formatDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())
+                binding.tvSeekBarEnd.text = formatDuration(musicService!!.mediaPlayer!!.duration.toLong())
                 binding.seekBarPA.progress = musicService!!.mediaPlayer!!.currentPosition
                 binding.seekBarPA.max = musicService!!.mediaPlayer!!.duration
-                if (isPlaying) binding.playPauseBtnPA.setImageResource(R.drawable.pause_icon)
+                if(isPlaying) binding.playPauseBtnPA.setImageResource(R.drawable.pause_icon)
                 else binding.playPauseBtnPA.setImageResource(R.drawable.play_icon)
             }
-            //根据传递过来的类名,选择不同的列表
-            "MusicAdapterSearch" -> {
-                //绑定服务
-                val intent = Intent(this, MusicService::class.java)
-                //绑定服务,其中BIND_AUTO_CREATE表示在Activity和Service建立关联后自动创建Service
-                bindService(intent, this, BIND_AUTO_CREATE)
-                startService(intent)
-                musicListPA = ArrayList()
-                musicListPA.addAll(MainActivity.musicListSearch)
-                setLayout()
-            }
-
-            "MusicAdapter" -> {
-                //绑定服务
-                val intent = Intent(this, MusicService::class.java)
-                //绑定服务,其中BIND_AUTO_CREATE表示在Activity和Service建立关联后自动创建Service
-                bindService(intent, this, BIND_AUTO_CREATE)
-                startService(intent)
-                musicListPA = ArrayList()
-                musicListPA.addAll(MainActivity.MusicListMA)
-                setLayout()
-            }
-
-            "MainActivity" -> {
-                //绑定服务
-                val intent = Intent(this, MusicService::class.java)
-                //绑定服务,其中BIND_AUTO_CREATE表示在Activity和Service建立关联后自动创建Service
-                bindService(intent, this, BIND_AUTO_CREATE)
-                startService(intent)
-                //说明是高贵的主界面的随机按钮传过来的
-                musicListPA = ArrayList()
-                musicListPA.addAll(MainActivity.MusicListMA)
-                musicListPA.shuffle()
-                setLayout()
-//                playMusic()
-            }
-
-            "FavouriteShuffle" -> {
-                val intent = Intent(this, MusicService::class.java)
-                //绑定服务,其中BIND_AUTO_CREATE表示在Activity和Service建立关联后自动创建Service
-                bindService(intent, this, BIND_AUTO_CREATE)
-                startService(intent)
-                //说明是高贵的主界面的随机按钮传过来的
-                musicListPA = ArrayList()
-                musicListPA.addAll(FavouriteActivity.favouriteSongs)
-                musicListPA.shuffle()
-                setLayout()
-//                playMusic()
-            }
-
-            "PlaylistDetailsAdapter" -> {
-                val intent = Intent(this, MusicService::class.java)
-                //绑定服务,其中BIND_AUTO_CREATE表示在Activity和Service建立关联后自动创建Service
-                bindService(intent, this, BIND_AUTO_CREATE)
-                startService(intent)
-                //说明是高贵的主界面的随机按钮传过来的
-                musicListPA = ArrayList()
-                musicListPA.addAll(PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist)
-                setLayout()
-            }
-
-            "PlaylistDetailsShuffle" -> {
-                val intent = Intent(this, MusicService::class.java)
-                //绑定服务,其中BIND_AUTO_CREATE表示在Activity和Service建立关联后自动创建Service
-                bindService(intent, this, BIND_AUTO_CREATE)
-                startService(intent)
-                //说明是高贵的主界面的随机按钮传过来的
-                musicListPA = ArrayList()
-                musicListPA.addAll(PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist)
-                musicListPA.shuffle()
-                setLayout()
-            }
+            "MusicAdapterSearch"-> initServiceAndPlaylist(MainActivity.musicListSearch, shuffle = false)
+            "MusicAdapter" -> initServiceAndPlaylist(MainActivity.MusicListMA, shuffle = false)
+            "FavouriteAdapter"-> initServiceAndPlaylist(FavouriteActivity.favouriteSongs, shuffle = false)
+            "MainActivity"-> initServiceAndPlaylist(MainActivity.MusicListMA, shuffle = true)
+            "FavouriteShuffle"-> initServiceAndPlaylist(FavouriteActivity.favouriteSongs, shuffle = true)
+            "PlaylistDetailsAdapter"->
+                initServiceAndPlaylist(PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist, shuffle = false)
+            "PlaylistDetailsShuffle"->
+                initServiceAndPlaylist(PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist, shuffle = true)
         }
     }
 
@@ -369,18 +308,14 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
 
     //为什么要用service的方式,这是为了让音乐播放器在后台运行,而不是在前台运行
     override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-        //定义了一个 MusicService.MyBinder 的对象
-        val binder = service as MusicService.MyBinder
-        //通过 MyBinder 对象获取到 MusicService 的实例
-        musicService = binder.currentService()
+        if(musicService == null){
+            val binder = service as MusicService.MyBinder
+            musicService = binder.currentService()
+            musicService!!.audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
+            musicService!!.audioManager.requestAudioFocus(musicService, AudioManager.STREAM_MUSIC, AudioManager.AUDIOFOCUS_GAIN)
+        }
         createMediaPlayer()
         musicService!!.seekBarSetup()
-        musicService!!.audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        musicService!!.audioManager!!.requestAudioFocus(
-            musicService,
-            AudioManager.STREAM_MUSIC,
-            AudioManager.AUDIOFOCUS_GAIN
-        )
     }
 
     override fun onServiceDisconnected(p0: ComponentName?) {
@@ -445,6 +380,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         super.onDestroy()
         if (musicListPA[songPosition].id == "Unknown" && !isPlaying) exitApplication()
     }
+
     private fun initServiceAndPlaylist(playlist: ArrayList<Music>, shuffle: Boolean, playNext: Boolean = false){
         val intent = Intent(this, MusicService::class.java)
         bindService(intent, this, BIND_AUTO_CREATE)
@@ -453,7 +389,5 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         musicListPA.addAll(playlist)
         if(shuffle) musicListPA.shuffle()
         setLayout()
-//        if(!playNext) PlayNext.playNextList = ArrayList()
     }
-
 }

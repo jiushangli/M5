@@ -1,8 +1,11 @@
 package com.example.m5
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.m5.databinding.ActivityFavouriteBinding
@@ -14,6 +17,8 @@ class FavouriteActivity : AppCompatActivity() {
 
     companion object {
         var favouriteSongs: ArrayList<Music> = ArrayList()
+        var favouritesChanged: Boolean = false
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +48,25 @@ class FavouriteActivity : AppCompatActivity() {
             intent.putExtra("class", "FavouriteShuffle")
             //点击随机播放跳到播放界面
             startActivity(intent)
+        }
+            binding.shufflerBtnFA.setOnClickListener {
+                //刷新页面
+                favouriteSongs.shuffle()
+                adapter.notifyDataSetChanged()
+            }
+        binding.addBtnFA.setOnClickListener {
+            Toast.makeText(this, "喜欢的歌要一首一首添加", Toast.LENGTH_SHORT).show()
+        }
+
+        favouritesChanged = false
+        if(favouriteSongs.size < 1) binding.shuffleBtnFA.visibility = View.INVISIBLE
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onResume() {
+        super.onResume()
+        if(favouritesChanged) {
+            adapter.updateFavourites(favouriteSongs)
+            favouritesChanged = false
         }
     }
 }

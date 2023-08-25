@@ -42,6 +42,7 @@ class PlaylistDetails : AppCompatActivity() {
             intent.putExtra("class", "PlaylistDetailsShuffle")
             startActivity(intent)
         }
+
         binding.addBtnPD.setOnClickListener {
             startActivity(Intent(this, SelectionActivity::class.java).setAction("your.custom.action"))
         }

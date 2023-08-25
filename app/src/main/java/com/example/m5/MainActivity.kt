@@ -100,7 +100,11 @@ class MainActivity : AppCompatActivity() {
             //点击随机播放跳到播放界面
             startActivity(intent)
         }
-
+        binding.shuffleBtn.setOnLongClickListener {
+            MusicListMA.shuffle()
+            musicAdapter.notifyDataSetChanged()
+            true
+        }
         //从喜欢按钮跳到喜欢的音乐列表
         binding.favouriteBtn.setOnClickListener {
             startActivity(

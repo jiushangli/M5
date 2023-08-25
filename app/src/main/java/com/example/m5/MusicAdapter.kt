@@ -39,7 +39,6 @@ class MusicAdapter(
         }
         PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist.add(song)
         return true
-
     }
 
     override fun onBindViewHolder(holder: MusicAdapter.MyHolder, position: Int) {

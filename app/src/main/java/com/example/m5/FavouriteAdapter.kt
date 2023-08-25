@@ -1,5 +1,6 @@
 package com.example.m5
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -45,5 +46,10 @@ class FavouriteAdapter(private val context: Context, private var musicList: Arra
     override fun getItemCount(): Int {
         return musicList.size
     }
-
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateFavourites(newList: ArrayList<Music>){
+        musicList = ArrayList()
+        musicList.addAll(newList)
+        notifyDataSetChanged()
+    }
 }
