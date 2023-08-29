@@ -3,6 +3,7 @@ package com.example.m5
 import android.content.Context
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.m5.databinding.ActivityFeedbackBinding
@@ -21,7 +22,7 @@ class FeedbackActivity : AppCompatActivity() {
         setTheme(R.style.coolBlue)
         binding = ActivityFeedbackBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
         supportActionBar?.title = "反馈"
 
         binding.sendFA.setOnClickListener {

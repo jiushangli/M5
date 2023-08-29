@@ -32,7 +32,7 @@ class FavouriteAdapter(private val context: Context, private var musicList: Arra
         holder.duration.text = formatDuration(musicList[position].duration)
         Glide.with(context)
             .load(musicList[position].artUri)
-            .apply(RequestOptions().placeholder(R.drawable.music_player).centerCrop())
+            .apply(RequestOptions().placeholder(R.drawable.moni2).centerCrop())
             .into(holder.image)
 
         holder.root.setOnClickListener {

@@ -54,5 +54,8 @@
         <item name="android:statusBarColor">?attr/themeColor</item>
     </style>
 
+    <style name="AppTheme" parent="BaseTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
 
 </resources>

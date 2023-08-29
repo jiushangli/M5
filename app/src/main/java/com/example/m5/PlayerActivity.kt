@@ -11,6 +11,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
 import android.provider.MediaStore
+import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.Toast
@@ -47,8 +48,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         setTheme(R.style.coolBlue)
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
-
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
         if (intent.data?.scheme.contentEquals("content")) {
             val intentService = Intent(this, MusicService::class.java)
             //绑定服务,其中BIND_AUTO_CREATE表示在Activity和Service建立关联后自动创建Service
@@ -235,8 +235,8 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             musicService!!.mediaPlayer!!.start()
             isPlaying = true
             //替换播放按钮
-            binding.playPauseBtnPA.setBackgroundResource(R.drawable.pause_icon)
-            musicService!!.showNotification(if (isPlaying) R.drawable.pause_icon else R.drawable.play_icon,1F)
+            binding.playPauseBtnPA.setImageResource(R.drawable.ic_pause)
+            musicService!!.showNotification(if (isPlaying) R.drawable.ic_pause else R.drawable.play_icon,1F)
             //这是进度条两端的文字时间进度
             binding.tvSeekBarStart.text =
                 formatDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())
@@ -265,7 +265,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
                 binding.tvSeekBarEnd.text = formatDuration(musicService!!.mediaPlayer!!.duration.toLong())
                 binding.seekBarPA.progress = musicService!!.mediaPlayer!!.currentPosition
                 binding.seekBarPA.max = musicService!!.mediaPlayer!!.duration
-                if(isPlaying) binding.playPauseBtnPA.setImageResource(R.drawable.pause_icon)
+                if(isPlaying) binding.playPauseBtnPA.setImageResource(R.drawable.ic_pause)
                 else binding.playPauseBtnPA.setImageResource(R.drawable.play_icon)
             }
             "MusicAdapterSearch"-> initServiceAndPlaylist(MainActivity.musicListSearch, shuffle = false)
@@ -273,6 +273,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             "FavouriteAdapter"-> initServiceAndPlaylist(FavouriteActivity.favouriteSongs, shuffle = false)
             "MainActivity"-> initServiceAndPlaylist(MainActivity.MusicListMA, shuffle = true)
             "FavouriteShuffle"-> initServiceAndPlaylist(FavouriteActivity.favouriteSongs, shuffle = true)
+            "FavouriteSequence"-> initServiceAndPlaylist(FavouriteActivity.favouriteSongs, shuffle = false)
             "PlaylistDetailsAdapter"->
                 initServiceAndPlaylist(PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist, shuffle = false)
             "PlaylistDetailsShuffle"->
@@ -281,8 +282,8 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
     }
 
     private fun playMusic() {
-        binding.playPauseBtnPA.setImageResource(R.drawable.pause_icon)
-        musicService!!.showNotification(R.drawable.pause_icon,1F)
+        binding.playPauseBtnPA.setImageResource(R.drawable.ic_pause)
+        musicService!!.showNotification(R.drawable.ic_pause,1F)
         isPlaying = true
         musicService!!.mediaPlayer!!.start()
     }

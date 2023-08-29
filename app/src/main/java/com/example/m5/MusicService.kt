@@ -121,7 +121,7 @@ class MusicService : Service(), AudioManager.OnAudioFocusChangeListener {
             mediaPlayer!!.setDataSource(PlayerActivity.musicListPA[PlayerActivity.songPosition].path)
             mediaPlayer!!.prepare()
             PlayerActivity.binding.playPauseBtnPA.setImageResource(R.drawable.ic_pause)
-            showNotification(R.drawable.pause_icon,1F)
+            showNotification(R.drawable.ic_pause,1F)
             PlayerActivity.binding.tvSeekBarStart.text = formatDuration(mediaPlayer!!.currentPosition.toLong())
             PlayerActivity.binding.tvSeekBarEnd.text = formatDuration(mediaPlayer!!.duration.toLong())
             PlayerActivity.binding.seekBarPA.progress = 0
@@ -142,7 +142,7 @@ class MusicService : Service(), AudioManager.OnAudioFocusChangeListener {
     override fun onAudioFocusChange(focusChange: Int) {
         if (focusChange <= 0) {
             //暂停音乐
-            PlayerActivity.binding.playPauseBtnPA.setBackgroundResource(R.drawable.play_icon)
+            PlayerActivity.binding.playPauseBtnPA.setImageResource(R.drawable.play_icon)
             NowPlaying.binding.playPauseBtnNP.setImageResource(R.drawable.play_icon)
             PlayerActivity.isPlaying = false
             mediaPlayer!!.pause()

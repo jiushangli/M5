@@ -12,7 +12,7 @@ android:padding="2dp">
     android:layout_height="40dp"
     android:layout_centerVertical="true"
     android:layout_marginStart="5dp"
-    android:src="@mipmap/music_player_icon"
+    android:src="@drawable/moni2"
     app:shapeAppearanceOverlay="@style/curved_photo" />
 
 <TextView

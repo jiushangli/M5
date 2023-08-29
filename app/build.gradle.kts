@@ -51,8 +51,8 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     //Glide for image loading
-    implementation (libs.glide)
-    annotationProcessor (libs.compiler)
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler)
 
     //for Notification,导入media
     implementation(libs.androidx.media)
@@ -64,4 +64,8 @@ dependencies {
     implementation(libs.android.mail)
     implementation(libs.android.activation)
 
+    //亚克力模糊
+//    implementation (libs.blurimageviewlib)
+
+    implementation (libs.blurkit)
 }

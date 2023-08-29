@@ -1,27 +1,28 @@
 package com.example.m5
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.example.m5.databinding.ActivitySettingBinding
+
 
 class SettingActivity : AppCompatActivity() {
     lateinit var binding: ActivitySettingBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.leaves)
+        setTheme(R.style.coolBlue)
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
         supportActionBar?.title = "设置"
-        when (MainActivity.themeIndex) {
+/*        when (MainActivity.themeIndex) {
             0 -> binding.coolCyanTheme.setBackgroundColor(Color.WHITE)
             1 -> binding.coolRedTheme.setBackgroundColor(Color.WHITE)
             2 -> binding.coolGreenTheme.setBackgroundColor(Color.WHITE)
             3 -> binding.coolBlueTheme.setBackgroundColor(Color.WHITE)
             4 -> binding.coolBlackTheme.setBackgroundColor(Color.WHITE)
-        }
+        }*/
 
         binding.coolGreenTheme.setOnClickListener { saveTheme(0) }
         binding.coolRedTheme.setOnClickListener { saveTheme(1) }
@@ -46,6 +47,9 @@ class SettingActivity : AppCompatActivity() {
             )
         }
 
+//        binding.imgVague.refreshBG(binding.root);
+
+//        BlurImageView.doBlur(binding.imgVague, binding.root, 20, 1)
 //        binding.versionName.text = setVersionDetails()
         //用于排序到时候用得上
         /*        binding.sortBtn.setOnClickListener {
@@ -91,5 +95,14 @@ class SettingActivity : AppCompatActivity() {
     private fun setVersionDetails(): String {
         return "Version Name: 1.0"
     }
+    override fun onStart() {
+        super.onStart()
+        binding.blurLayout.startBlur()
+        binding.blurLayout.lockView()
+    }
 
+    override fun onStop() {
+        super.onStop()
+        binding.blurLayout.pauseBlur()
+    }
 }

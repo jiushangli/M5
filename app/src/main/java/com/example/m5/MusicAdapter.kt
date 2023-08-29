@@ -48,7 +48,7 @@ class MusicAdapter(
         //加载图片
         Glide.with(context)
             .load(musicList[position].artUri)
-            .apply(RequestOptions().placeholder(R.drawable.music_player).centerCrop())
+            .apply(RequestOptions().placeholder(R.drawable.moni2).centerCrop())
             .into(holder.image)
 
         when{

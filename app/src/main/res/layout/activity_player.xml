@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<io.alterac.blurkit.BlurLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:blurkit="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/blurLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    blurkit:blk_blurRadius="20"
+    android:fitsSystemWindows="true"
+    blurkit:blk_downscaleFactor="0.05"
+    blurkit:blk_fps="40">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -22,10 +33,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:elevation="4dp"
             android:layout_marginHorizontal="40dp"
             android:background="@drawable/rounded_background"
             android:drawableLeft="@drawable/music_icon"
+            android:elevation="4dp"
             android:text="@string/world_of_music"
             android:textAlignment="viewEnd"
             android:textColor="@color/black"
@@ -86,38 +97,37 @@
     <!--    播放的三个控件-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="160dp"
         android:layout_margin="0dp"
-        android:layout_weight="1"
         android:gravity="center"
         android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/previousBtnPA"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:background="@drawable/notification_selector"
             android:scaleType="centerInside"
             android:src="@drawable/ic_skip_previous"
-            app:tint="@color/blue" />
+            app:tint="@color/white" />
 
         <ImageButton
             android:id="@+id/playPauseBtnPA"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:background="@drawable/notification_selector"
             android:scaleType="centerInside"
             android:src="@drawable/ic_pause"
-            app:tint="@color/cool_red" />
+            app:tint="@color/white" />
 
         <ImageButton
             android:id="@+id/nextBtnPA"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:background="@drawable/notification_selector"
             android:scaleType="centerInside"
             android:src="@drawable/ic_skip_next"
-            app:tint="@color/cool_green" />
+            app:tint="@color/white" />
 
     </LinearLayout>
 
@@ -128,7 +138,7 @@
         android:layout_marginHorizontal="25dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/rounded_background"
-        android:backgroundTint="@color/mask_cyan"
+        android:backgroundTint="@color/white"
         android:orientation="horizontal"
         android:padding="10dp">
 
@@ -138,16 +148,16 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="@string/start_tv"
-            android:textColor="@color/Golden_yellow"
+            android:textColor="@color/blue"
             android:textSize="15sp"
             android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatSeekBar
             android:id="@+id/seekBarPA"
+            style="@style/SeekBarStyle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            style="@style/SeekBarStyle"
             tools:ignore="NestedWeights" />
 
         <TextView
@@ -156,7 +166,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="@string/end_tv"
-            android:textColor="@color/Golden_yellow"
+            android:textColor="@color/blue"
             android:textSize="15sp"
             android:textStyle="bold" />
 
@@ -170,8 +180,8 @@
         android:layout_marginHorizontal="24dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/rounded_background"
-        android:gravity="center"
         android:backgroundTint="@color/mask_pink"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <ImageButton
@@ -217,6 +227,6 @@
             android:contentDescription="@string/share_btn"
             android:src="@drawable/share_icon"
             app:tint="@color/Golden_yellow" />
-
     </LinearLayout>
 </LinearLayout>
+</io.alterac.blurkit.BlurLayout>

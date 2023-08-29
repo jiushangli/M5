@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
+<io.alterac.blurkit.BlurLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:blurkit="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/blurLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    blurkit:blk_blurRadius="25"
+    android:fitsSystemWindows="true"
+    blurkit:blk_downscaleFactor="0.01"
+    blurkit:blk_fps="1">
+
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".MainActivity"
-    tools:openDrawer="start">
+    tools:context=".MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -30,8 +39,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:tint="@color/cool_green"
-                    android:src="@drawable/music_icon" />
+                    android:src="@drawable/music_icon"
+                    app:tint="@color/cool_green" />
 
                 <ImageButton
                     android:id="@+id/NetEaseBtn"
@@ -118,11 +127,11 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nowPlaying"
-            android:background="@drawable/rounded_background"
-            android:layout_margin="10dp"
             android:name="com.example.m5.NowPlaying"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/rounded_background"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -131,3 +140,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>
+
+</io.alterac.blurkit.BlurLayout>
+

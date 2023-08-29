@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/navFA"
+            android:id="@+id/addBtnFA"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -48,16 +48,16 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutFA">
 
         <ImageButton
-            android:id="@+id/shufflerBtnFA"
+            android:id="@+id/sequenceBtnFA"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/shuffler_icon"
-            app:tint="@color/cool_red" />
+            android:src="@drawable/play_frag"
+            app:tint="@color/mask_pink" />
 
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addBtnFA"
             style="?attr/floatingActionButtonSmallSurfaceStyle"
             android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
             android:layout_weight="1"
             android:backgroundTint="@color/mask_pink"
             app:elevation="0dp"
-            app:srcCompat="@drawable/plus_icon" />
+            app:srcCompat="@drawable/plus_icon" />-->
 
         <ImageButton
             android:id="@+id/shuffleBtnFA"

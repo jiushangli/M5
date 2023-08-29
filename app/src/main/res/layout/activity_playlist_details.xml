@@ -4,49 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".PlaylistDetails">
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/cool_green"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageButton
-            android:id="@+id/backBtnPD"
-            android:layout_width="32dp"
-            android:layout_height="50dp"
-            android:backgroundTint="@android:color/transparent"
-            android:contentDescription="@string/back_btn"
-            android:src="@drawable/back_icon"
-            app:tint="@color/white" />
-
-        <TextView
-            android:id="@+id/playlistNamePD"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:contentDescription="@string/playlist_btn"
-            android:gravity="center"
-            android:text="@string/playlist_btn"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:singleLine="true"
-            android:textStyle="bold" />
-
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="50dp"
-            android:backgroundTint="@android:color/transparent"
-            android:contentDescription="@string/back_btn"
-            android:padding="5dp"
-            android:src="@drawable/more_icon"
-            app:tint="@color/white" />
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayoutDetails"
@@ -56,17 +15,17 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/playlistImgPD"
             android:layout_width="100dp"
             android:padding="8dp"
             android:layout_height="100dp"
-            android:src="@drawable/music_player" />
+            android:src="@drawable/moni1" />
 
         <TextView
-            android:id="@+id/moreInfoPD"
+            android:id="@+id/playlistNamePD"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="5dp"

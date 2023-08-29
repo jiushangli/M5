@@ -97,7 +97,7 @@ class NowPlaying : Fragment() {
             binding.songNameNP.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].title
             binding.artistNP.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].artist
             if (PlayerActivity.isPlaying) binding.playPauseBtnNP.setImageResource(R.drawable.pause_icon)
-            else binding.playPauseBtnNP.setImageResource(R.drawable.play_icon)
+            else binding.playPauseBtnNP.setImageResource(R.drawable.play_frag)
         }
     }
 
@@ -111,8 +111,8 @@ class NowPlaying : Fragment() {
 
     private fun pauseMusic() {
         PlayerActivity.musicService!!.mediaPlayer!!.pause()
-        binding.playPauseBtnNP.setImageResource(R.drawable.play_icon)
-        PlayerActivity.musicService!!.showNotification(R.drawable.play_icon,0F)
+        binding.playPauseBtnNP.setImageResource(R.drawable.play_frag)
+        PlayerActivity.musicService!!.showNotification(R.drawable.play_frag,0F)
 //        PlayerActivity.binding.nextBtnPA.setIconResource(R.drawable.play_icon)
         PlayerActivity.isPlaying = false
     }

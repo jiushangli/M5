@@ -25,7 +25,7 @@
         android:layout_marginEnd="5dp"
         android:layout_toStartOf="@+id/playPauseBtnNP"
         android:backgroundTint="@android:color/transparent"
-        android:src="@drawable/ic_skip_previous"
+        android:src="@drawable/pre_frag"
         app:tint="@color/blue" />
 
     <ImageButton
@@ -35,7 +35,7 @@
         android:layout_centerVertical="true"
         android:layout_toStartOf="@+id/nextBtnNP"
         android:backgroundTint="@android:color/transparent"
-        android:src="@drawable/play_icon"
+        android:src="@drawable/play_frag"
         app:tint="@color/cool_red" />
 
     <ImageButton
@@ -46,7 +46,7 @@
         android:layout_centerVertical="true"
         android:layout_marginEnd="5dp"
         android:backgroundTint="@android:color/transparent"
-        android:src="@drawable/ic_skip_next"
+        android:src="@drawable/next_frag"
         app:tint="@color/cool_green" />
 
 

@@ -49,22 +49,36 @@ class FavouriteActivity : AppCompatActivity() {
             //点击随机播放跳到播放界面
             startActivity(intent)
         }
-            binding.shufflerBtnFA.setOnClickListener {
-                //刷新页面
-                favouriteSongs.shuffle()
-                adapter.notifyDataSetChanged()
-            }
+        binding.shuffleBtnFA.setOnLongClickListener {
+
+            favouriteSongs.shuffle()
+            adapter.notifyDataSetChanged()
+            true
+        }
+        binding.sequenceBtnFA.setOnClickListener {
+            //刷新页面
+            val intent = Intent(
+                this,
+                PlayerActivity::class.java
+            ).setAction("your.custom.action")
+            intent.putExtra("index", 0)
+            intent.putExtra("class", "FavouriteSequence")
+            //点击随机播放跳到播放界面
+            startActivity(intent)
+
+        }
         binding.addBtnFA.setOnClickListener {
             Toast.makeText(this, "喜欢的歌要一首一首添加", Toast.LENGTH_SHORT).show()
         }
 
         favouritesChanged = false
-        if(favouriteSongs.size < 1) binding.shuffleBtnFA.visibility = View.INVISIBLE
+        if (favouriteSongs.size < 1) binding.shuffleBtnFA.visibility = View.INVISIBLE
     }
+
     @SuppressLint("NotifyDataSetChanged")
     override fun onResume() {
         super.onResume()
-        if(favouritesChanged) {
+        if (favouritesChanged) {
             adapter.updateFavourites(favouriteSongs)
             favouritesChanged = false
         }

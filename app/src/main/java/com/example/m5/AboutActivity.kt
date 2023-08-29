@@ -1,6 +1,7 @@
 package com.example.m5
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.example.m5.databinding.ActivityAboutBinding
 
@@ -11,7 +12,7 @@ class AboutActivity : AppCompatActivity() {
         setTheme(R.style.coolBlue)
         binding = ActivityAboutBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
         supportActionBar?.title = "关于"
         binding.aboutText.text = aboutText()
     }
