@@ -64,7 +64,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutDetails">
 
         <ImageButton
-            android:id="@+id/sequenceBtnFA"
+            android:id="@+id/sequenceBtnPD"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

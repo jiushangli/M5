@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -38,13 +39,37 @@ class PlaylistDetails : AppCompatActivity() {
         adapter =
             MusicAdapter(this, PlaylistActivity.musicPlaylist.ref[currentPlaylistPos].playlist)
         binding.playlistDetailsRV.adapter = adapter
+
         binding.shuffleBtnPD.setOnClickListener {
-            val intent = Intent(this, PlayerActivity::class.java).setAction("your.custom.action")
-            intent.putExtra("index", 0)
-            intent.putExtra("class", "PlaylistDetailsShuffle")
-            startActivity(intent)
+            if (PlaylistActivity.musicPlaylist.ref[currentPlaylistPos].playlist.size >= 1) {
+                val intent =
+                    Intent(this, PlayerActivity::class.java).setAction("your.custom.action")
+                intent.putExtra("index", 0)
+                intent.putExtra("class", "PlaylistDetailsShuffle")
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "请先添加一点音乐吧", Toast.LENGTH_SHORT).show()
+            }
+        }
+        binding.sequenceBtnPD.setOnClickListener {
+            if (PlaylistActivity.musicPlaylist.ref[currentPlaylistPos].playlist.size >= 1) {
+                val intent =
+                    Intent(this, PlayerActivity::class.java).setAction("your.custom.action")
+                intent.putExtra("index", 0)
+                intent.putExtra("class", "PlaylistDetailsSequence")
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "请先添加一点音乐吧", Toast.LENGTH_SHORT).show()
+            }
         }
 
+        binding.shuffleBtnPD.setOnLongClickListener {
+            PlaylistActivity.musicPlaylist.ref[currentPlaylistPos].playlist.shuffle()
+            adapter.notifyDataSetChanged()
+            true
+        }
+
+        //为歌单添加歌曲
         binding.playlistNamePD.setOnClickListener {
             startActivity(
                 Intent(
@@ -54,22 +79,21 @@ class PlaylistDetails : AppCompatActivity() {
             )
         }
 
-/*        binding.removeAllPD.setOnClickListener {
-            val builder = MaterialAlertDialogBuilder(this)
-            builder.setTitle("删除全部音乐")
-                .setMessage("你想要删除所有音乐吗?")
-                .setPositiveButton("我意已决") { dialog, _ ->
-                    PlaylistActivity.musicPlaylist.ref[currentPlaylistPos].playlist.clear()
-                    adapter.refreshPlaylist()
-                    dialog.dismiss()
-                }
-                .setNegativeButton("悬崖勒马") { dialog, _ ->
-                    dialog.dismiss()
-                }
-            val customDialog = builder.create()
-            customDialog.show()
-        }*/
-
+        /*        binding.removeAllPD.setOnClickListener {
+                    val builder = MaterialAlertDialogBuilder(this)
+                    builder.setTitle("删除全部音乐")
+                        .setMessage("你想要删除所有音乐吗?")
+                        .setPositiveButton("我意已决") { dialog, _ ->
+                            PlaylistActivity.musicPlaylist.ref[currentPlaylistPos].playlist.clear()
+                            adapter.refreshPlaylist()
+                            dialog.dismiss()
+                        }
+                        .setNegativeButton("悬崖勒马") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                    val customDialog = builder.create()
+                    customDialog.show()
+                }*/
     }
 
     override fun onResume() {

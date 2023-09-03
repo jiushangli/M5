@@ -52,23 +52,26 @@ class FavouriteActivity : AppCompatActivity() {
                 Toast.makeText(this, "请先添加一点音乐吧", Toast.LENGTH_SHORT).show()
             }
         }
+        //长按随机打乱歌单顺序
         binding.shuffleBtnFA.setOnLongClickListener {
-
             favouriteSongs.shuffle()
             adapter.notifyDataSetChanged()
             true
         }
+        //顺序播放
         binding.sequenceBtnFA.setOnClickListener {
-            //刷新页面
-            val intent = Intent(
-                this,
-                PlayerActivity::class.java
-            ).setAction("your.custom.action")
-            intent.putExtra("index", 0)
-            intent.putExtra("class", "FavouriteSequence")
-            //点击随机播放跳到播放界面
-            startActivity(intent)
-
+            if (favouriteSongs.size >= 1) {
+                val intent = Intent(
+                    this,
+                    PlayerActivity::class.java
+                ).setAction("your.custom.action")
+                intent.putExtra("index", 0)
+                intent.putExtra("class", "FavouriteSequence")
+                //点击随机播放跳到播放界面
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "请先添加一点音乐吧", Toast.LENGTH_SHORT).show()
+            }
         }
         binding.addBtnFA.setOnClickListener {
             Toast.makeText(this, "喜欢的歌要一首一首添加", Toast.LENGTH_SHORT).show()

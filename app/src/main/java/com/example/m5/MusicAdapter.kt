@@ -30,10 +30,11 @@ class MusicAdapter(
     }
 
     private fun addSong(song: Music): Boolean {
-        PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist.forEachIndexed{
-            index, music ->
-            if(music.id == song.id){
-                PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist.removeAt(index)
+        PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist.forEachIndexed { index, music ->
+            if (music.id == song.id) {
+                PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist.removeAt(
+                    index
+                )
                 return false
             }
         }
@@ -44,31 +45,47 @@ class MusicAdapter(
     override fun onBindViewHolder(holder: MusicAdapter.MyHolder, position: Int) {
         holder.title.text = musicList[position].title
         holder.album.text = musicList[position].artist
-        holder.duration.text = formatDuration(musicList[position].duration)
+//        holder.duration.text = formatDuration(musicList[position].duration)
         //加载图片
         Glide.with(context)
             .load(musicList[position].artUri)
             .apply(RequestOptions().placeholder(R.drawable.moni2).centerCrop())
             .into(holder.image)
 
-        when{
-            playlistDetails ->{
+        when {
+            playlistDetails -> {
                 holder.root.setOnClickListener {
                     sendIntent(ref = "PlaylistDetailsAdapter", pos = position)
                 }
             }
-            selectionActivity ->{
+
+            selectionActivity -> {
                 holder.root.setOnClickListener {
-                    if(addSong(musicList[position])){
-                        holder.root.setBackgroundColor(ContextCompat.getColor(context, R.color.mask_cyan))
-                    }else
-                        holder.root.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+                    if (addSong(musicList[position])) {
+                        holder.root.setBackgroundColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.mask_cyan
+                            )
+                        )
+                    } else
+                        holder.root.setBackgroundColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.white
+                            )
+                        )
                 }
             }
+
             else ->
                 holder.root.setOnClickListener {
                     when {
-                        MainActivity.search -> sendIntent(ref = "MusicAdapterSearch", pos = position)
+                        MainActivity.search -> sendIntent(
+                            ref = "MusicAdapterSearch",
+                            pos = position
+                        )
+
                         musicList[position].id == PlayerActivity.nowPlayingId
                         -> sendIntent(ref = "NowPlaying", pos = PlayerActivity.songPosition)
 
@@ -94,7 +111,8 @@ class MusicAdapter(
         intent.putExtra("class", ref)
         ContextCompat.startActivity(context, intent, null)
     }
-    fun refreshPlaylist(){
+
+    fun refreshPlaylist() {
         musicList = ArrayList()
         musicList = PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist
         notifyDataSetChanged()
