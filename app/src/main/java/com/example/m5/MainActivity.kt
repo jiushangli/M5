@@ -210,7 +210,9 @@ class MainActivity : AppCompatActivity() {
     private fun getAllAudio(): ArrayList<Music> {
         val tempList = ArrayList<Music>()
         //这是一个筛选条件，表示只查询音乐文件
-        val selection = MediaStore.Audio.Media.IS_MUSIC + "!=0"
+        val selection =
+            MediaStore.Audio.Media.IS_MUSIC + "!=0 AND " + MediaStore.Audio.Media.DURATION + ">20000"
+
         // 创建一个包含需要查询的媒体库音乐信息的投影数组
         val projection = arrayOf(
             MediaStore.Audio.Media._ID, // 音乐文件ID
@@ -221,7 +223,6 @@ class MainActivity : AppCompatActivity() {
             MediaStore.Audio.Media.DATE_ADDED, // 音乐添加日期
             MediaStore.Audio.Media.DATA, // 音乐文件路径
             MediaStore.Audio.Media.ALBUM_ID // 音乐文件路径
-
         )
         val cursor = this.contentResolver.query(
             MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection,
