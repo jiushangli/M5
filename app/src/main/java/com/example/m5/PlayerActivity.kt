@@ -69,7 +69,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             initializeLayout()
 
         binding.navPA.setOnClickListener {
-            showItemSelectDialog(this@PlayerActivity)
+            showItemSelectDialog(this@PlayerActivity, position = songPosition)
         }
 
         //绑定播放按钮

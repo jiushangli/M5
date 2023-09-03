@@ -27,7 +27,7 @@
             app:shapeAppearanceOverlay="@style/curved_photo" />
 
         <TextView
-            android:id="@+id/songNameMV"
+            android:id="@+id/songNameISD"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_marginStart="5dp"
@@ -41,7 +41,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/songAlbumMV"
+            android:id="@+id/songArtistISD"
             android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:layout_marginStart="5dp"

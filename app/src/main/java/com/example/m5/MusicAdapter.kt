@@ -55,7 +55,7 @@ class MusicAdapter(
             .into(holder.image)
 
         holder.moreAciton.setOnClickListener {
-            showItemSelectDialog(context)
+            showItemSelectDialog(context,position)
         }
 
         when {
@@ -68,7 +68,6 @@ class MusicAdapter(
                 holder.root.setOnClickListener {
                     sendIntent(ref = "FavouriteAdapter", pos = position)
                 }
-
             }
             selectionActivity -> {
                 holder.root.setOnClickListener {

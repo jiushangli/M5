@@ -10,11 +10,14 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.RelativeLayout
+import android.widget.TextView
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.imageview.ShapeableImageView
 import java.io.File
 import kotlin.system.exitProcess
-
 
 
 data class Music(
@@ -129,7 +132,7 @@ fun setStatusBarTextColor(window: Window, light: Boolean) {
     }
 }
 
-fun showItemSelectDialog(context: Context) {
+fun showItemSelectDialog(context: Context, position: Int) {
     val dialog = BottomSheetDialog(context)
     dialog.setContentView(R.layout.item_select_dialog)
     dialog.show()
@@ -147,22 +150,59 @@ fun showItemSelectDialog(context: Context) {
     }
 
 
-    when(context){
+    when (context) {
         is PlayerActivity -> {
-            Toast.makeText(context, "我来自正在播放", Toast.LENGTH_SHORT).show()
-
+//            dialog.findViewById<ShapeableImageView>(R.id.imageMV)?.setImageResource(R.drawable.yqhy)
+            dialog.findViewById<ShapeableImageView>(R.id.imageMV)?.let {
+                Glide.with(context)
+                    .load(PlayerActivity.musicListPA[PlayerActivity.songPosition].artUri)
+                    .apply(RequestOptions().placeholder(R.drawable.moni1).centerCrop())
+                    .into(it)
+            }
+            dialog.findViewById<TextView>(R.id.songNameISD)?.text =
+                PlayerActivity.musicListPA[PlayerActivity.songPosition].title
+            dialog.findViewById<TextView>(R.id.songArtistISD)?.text =
+                PlayerActivity.musicListPA[PlayerActivity.songPosition].artist
         }
+
         is FavouriteActivity -> {
-            Toast.makeText(context, "我来自喜欢的歌", Toast.LENGTH_SHORT).show()
+            dialog.findViewById<ShapeableImageView>(R.id.imageMV)?.let {
+                Glide.with(context)
+                    .load(FavouriteActivity.favouriteSongs[position].artUri)
+                    .apply(RequestOptions().placeholder(R.drawable.moni1).centerCrop())
+                    .into(it)
+            }
+            dialog.findViewById<TextView>(R.id.songNameISD)?.text =
+                FavouriteActivity.favouriteSongs[position].title
+            dialog.findViewById<TextView>(R.id.songArtistISD)?.text =
+                FavouriteActivity.favouriteSongs[position].artist
 
         }
+
         is PlaylistDetails -> {
-            Toast.makeText(context, "我来自歌单", Toast.LENGTH_SHORT).show()
-
+            dialog.findViewById<ShapeableImageView>(R.id.imageMV)?.let {
+                Glide.with(context)
+                    .load(PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist[position].artUri)
+                    .apply(RequestOptions().placeholder(R.drawable.moni1).centerCrop())
+                    .into(it)
+            }
+            dialog.findViewById<TextView>(R.id.songNameISD)?.text =
+                PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist[position].title
+            dialog.findViewById<TextView>(R.id.songArtistISD)?.text =
+                PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist[position].artist
         }
-        is MainActivity -> {
-            Toast.makeText(context, "我来自主界面", Toast.LENGTH_SHORT).show()
 
+        is MainActivity -> {
+            dialog.findViewById<ShapeableImageView>(R.id.imageMV)?.let {
+                Glide.with(context)
+                    .load(MainActivity.MusicListMA[position].artUri)
+                    .apply(RequestOptions().placeholder(R.drawable.moni1).centerCrop())
+                    .into(it)
+            }
+            dialog.findViewById<TextView>(R.id.songNameISD)?.text =
+                MainActivity.MusicListMA[position].title
+            dialog.findViewById<TextView>(R.id.songArtistISD)?.text =
+                MainActivity.MusicListMA[position].artist
         }
     }
 
