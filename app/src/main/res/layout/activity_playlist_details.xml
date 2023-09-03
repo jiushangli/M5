@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/linearLayoutDetails"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="200dp"
         android:background="@drawable/vangogh"
         android:orientation="horizontal"
         android:paddingTop="30dp"

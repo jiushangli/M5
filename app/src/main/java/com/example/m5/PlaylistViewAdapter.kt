@@ -17,6 +17,7 @@ class PlaylistViewAdapter(private val context: Context, private var playlistList
         val image = binding.playlistImg
         val name = binding.playlistName
         val root = binding.root
+        val songNum = binding.playlistSongNum
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewAdapter.MyHolder {
@@ -26,6 +27,7 @@ class PlaylistViewAdapter(private val context: Context, private var playlistList
     override fun onBindViewHolder(holder: PlaylistViewAdapter.MyHolder, position: Int) {
         holder.name.text = playlistList[position].name
         holder.name.isSelected = true
+        holder.songNum.text = playlistList[position].playlist.size.toString() + "首"
         //用来删除歌单
 /*        holder.delete.setOnClickListener {
             val builder = MaterialAlertDialogBuilder(context)
@@ -50,7 +52,7 @@ class PlaylistViewAdapter(private val context: Context, private var playlistList
         if(PlaylistActivity.musicPlaylist.ref[position].playlist.size>0){
             Glide.with(context)
                 .load(PlaylistActivity.musicPlaylist.ref[position].playlist[0].artUri)
-                .apply(RequestOptions().placeholder(R.drawable.music_player).centerCrop())
+                .apply(RequestOptions().placeholder(R.drawable.yqhy).centerCrop())
                 .into(holder.image)
         }
     }

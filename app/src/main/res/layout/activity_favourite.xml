@@ -11,7 +11,7 @@
         android:id="@+id/linearLayoutFA"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@drawable/gradient_green"
+        android:background="@drawable/moni2"
         android:elevation="7dp"
         android:orientation="horizontal"
         android:paddingTop="30dp"

@@ -11,7 +11,7 @@
             android:id="@+id/playlistMode"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="@drawable/gradient_near_moon"
+            android:background="@drawable/vangogh"
             android:elevation="7dp"
             android:paddingTop="30dp"
             app:layout_constraintTop_toTopOf="parent"

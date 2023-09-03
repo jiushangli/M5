@@ -44,9 +44,10 @@
 
     <ImageButton
         android:id="@+id/songDuration"
-        android:layout_width="50dp"
+        android:layout_width="40dp"
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
         android:background="?attr/selectableItemBackground"
         android:src="@drawable/more_icon" />
 </RelativeLayout>
+
