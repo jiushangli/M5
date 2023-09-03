@@ -6,16 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/moni1"
-    blurkit:blk_blurRadius="15"
-    android:fitsSystemWindows="true"
-    blurkit:blk_downscaleFactor="0.12"
-    blurkit:blk_fps="60">
+    blurkit:blk_blurRadius="25"
+    blurkit:blk_downscaleFactor="0.01"
+    blurkit:blk_fps="1">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="10dp"
+        android:layout_marginTop="30dp"
         tools:context=".SettingActivity">
 
         <LinearLayout
@@ -128,4 +128,3 @@
         </LinearLayout>
     </LinearLayout>
 </io.alterac.blurkit.BlurLayout>
-

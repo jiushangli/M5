@@ -3,8 +3,6 @@ package com.example.m5
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,7 +24,8 @@ class FavouriteActivity : AppCompatActivity() {
         setTheme(R.style.coolRed)
         binding = ActivityFavouriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
+        transparentStatusBar(window)
+        setStatusBarTextColor(window, light = true)
         //检查并排除已经不存在的音乐
         favouriteSongs = checkPlaylist(favouriteSongs)
 
@@ -40,14 +39,18 @@ class FavouriteActivity : AppCompatActivity() {
         // 将 musicAdapter 设置为 musicRV 的适配器
         binding.favouriteRV.adapter = adapter
         binding.shuffleBtnFA.setOnClickListener {
-            val intent = Intent(
-                this,
-                PlayerActivity::class.java
-            ).setAction("your.custom.action")
-            intent.putExtra("index", 0)
-            intent.putExtra("class", "FavouriteShuffle")
-            //点击随机播放跳到播放界面
-            startActivity(intent)
+            if (favouriteSongs.size >= 1) {
+                val intent = Intent(
+                    this,
+                    PlayerActivity::class.java
+                ).setAction("your.custom.action")
+                intent.putExtra("index", 0)
+                intent.putExtra("class", "FavouriteShuffle")
+                //点击随机播放跳到播放界面
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "请先添加一点音乐吧", Toast.LENGTH_SHORT).show()
+            }
         }
         binding.shuffleBtnFA.setOnLongClickListener {
 
@@ -72,7 +75,6 @@ class FavouriteActivity : AppCompatActivity() {
         }
 
         favouritesChanged = false
-        if (favouriteSongs.size < 1) binding.shuffleBtnFA.visibility = View.INVISIBLE
     }
 
     @SuppressLint("NotifyDataSetChanged")

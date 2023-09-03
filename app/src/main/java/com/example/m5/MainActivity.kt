@@ -8,7 +8,6 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.Menu
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -52,10 +51,10 @@ class MainActivity : AppCompatActivity() {
         themeIndex = themeEditor.getInt("themeIndex", 0)
         setTheme(currentTheme[themeIndex])
         binding = ActivityMainBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
-
+        //透明状态栏以及文字颜色设定
+        transparentStatusBar(window)
+        setStatusBarTextColor(window, false)
 
         if (requestRuntimePermission()) {
             initializeLayout()

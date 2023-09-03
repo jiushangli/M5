@@ -11,7 +11,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
 import android.provider.MediaStore
-import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.Toast
@@ -48,7 +47,9 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         setTheme(R.style.coolBlue)
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
+        transparentStatusBar(window)
+        setStatusBarTextColor(window, false)
+
         if (intent.data?.scheme.contentEquals("content")) {
             val intentService = Intent(this, MusicService::class.java)
             //绑定服务,其中BIND_AUTO_CREATE表示在Activity和Service建立关联后自动创建Service

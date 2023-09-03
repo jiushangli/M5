@@ -1,31 +1,28 @@
 package com.example.m5
 
-import android.content.Context
-import android.net.ConnectivityManager
 import android.os.Bundle
-import android.view.WindowManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.m5.databinding.ActivityFeedbackBinding
-import java.util.Properties
-import javax.mail.Session
-import javax.mail.Transport
-import javax.mail.internet.InternetAddress
-import javax.mail.internet.MimeMessage
-import kotlin.concurrent.thread
 
 class FeedbackActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityFeedbackBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.coolBlue)
+        setTheme(R.style.coolGreen)
         binding = ActivityFeedbackBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
+        transparentStatusBar(window)
+        setStatusBarTextColor(window, false)
         supportActionBar?.title = "反馈"
 
-        binding.sendFA.setOnClickListener {
+/*        underBar(
+            this,
+            AppCompatResources.getDrawable(this, R.drawable.gradient_near_moon)!!,
+            binding.mainRecycler
+        )*/
+
+        /*binding.sendFA.setOnClickListener {
             val feedbackMsg = binding.feedbackMsgFA.text.toString() + "\n" +
                     binding.emailFA.text.toString()
             val subject = binding.topicFA.text.toString()
@@ -65,6 +62,6 @@ class FeedbackActivity : AppCompatActivity() {
                 finish()
             } else
                 Toast.makeText(this, "好像有些问题", Toast.LENGTH_SHORT).show()
-        }
+        }*/
     }
 }

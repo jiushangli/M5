@@ -5,7 +5,6 @@ import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -33,7 +32,10 @@ class PlaylistActivity : AppCompatActivity() {
         setTheme(R.style.coolRed)
         binding = ActivityPlaylistBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
+
+        transparentStatusBar(window)
+        setStatusBarTextColor(window, light = true)
+
         // 设置 RecyclerView 的固定大小以及缓存的项数，以优化性能
         binding.playlistRV.setHasFixedSize(true)
         binding.playlistRV.setItemViewCacheSize(13)
@@ -41,10 +43,8 @@ class PlaylistActivity : AppCompatActivity() {
         binding.playlistRV.layoutManager = GridLayoutManager(this@PlaylistActivity,2)
         // 创建 MusicAdapter 实例，并传入 MainActivity 和音乐列表作为参数
         adapter = PlaylistViewAdapter(this, playlistList = musicPlaylist.ref)
-
         // 将 musicAdapter 设置为 musicRV 的适配器
         binding.playlistRV.adapter = adapter
-
         binding.addPlaylistBtn.setOnClickListener { customAlertDialog() }
 
         val decoration: ItemDecoration = object : ItemDecoration() {

@@ -2,7 +2,6 @@ package com.example.m5
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.example.m5.databinding.ActivitySettingBinding
 
@@ -11,18 +10,21 @@ class SettingActivity : AppCompatActivity() {
     lateinit var binding: ActivitySettingBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setTheme(R.style.coolBlue)
+        setTheme(R.style.coolBlack)
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
+        transparentStatusBar(window)
+        setStatusBarTextColor(window, true)
+//        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
         supportActionBar?.title = "设置"
-/*        when (MainActivity.themeIndex) {
-            0 -> binding.coolCyanTheme.setBackgroundColor(Color.WHITE)
-            1 -> binding.coolRedTheme.setBackgroundColor(Color.WHITE)
-            2 -> binding.coolGreenTheme.setBackgroundColor(Color.WHITE)
-            3 -> binding.coolBlueTheme.setBackgroundColor(Color.WHITE)
-            4 -> binding.coolBlackTheme.setBackgroundColor(Color.WHITE)
-        }*/
+
+        /*        when (MainActivity.themeIndex) {
+                    0 -> binding.coolCyanTheme.setBackgroundColor(Color.WHITE)
+                    1 -> binding.coolRedTheme.setBackgroundColor(Color.WHITE)
+                    2 -> binding.coolGreenTheme.setBackgroundColor(Color.WHITE)
+                    3 -> binding.coolBlueTheme.setBackgroundColor(Color.WHITE)
+                    4 -> binding.coolBlackTheme.setBackgroundColor(Color.WHITE)
+                }*/
 
         binding.coolGreenTheme.setOnClickListener { saveTheme(0) }
         binding.coolRedTheme.setOnClickListener { saveTheme(1) }
