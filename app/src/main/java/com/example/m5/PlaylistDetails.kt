@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.m5.databinding.ActivityPlaylistDetailsBinding
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.gson.GsonBuilder
 
 class PlaylistDetails : AppCompatActivity() {
@@ -46,7 +45,7 @@ class PlaylistDetails : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.addBtnPD.setOnClickListener {
+        binding.playlistNamePD.setOnClickListener {
             startActivity(
                 Intent(
                     this,
@@ -55,7 +54,7 @@ class PlaylistDetails : AppCompatActivity() {
             )
         }
 
-        binding.removeAllPD.setOnClickListener {
+/*        binding.removeAllPD.setOnClickListener {
             val builder = MaterialAlertDialogBuilder(this)
             builder.setTitle("删除全部音乐")
                 .setMessage("你想要删除所有音乐吗?")
@@ -69,7 +68,7 @@ class PlaylistDetails : AppCompatActivity() {
                 }
             val customDialog = builder.create()
             customDialog.show()
-        }
+        }*/
 
     }
 
