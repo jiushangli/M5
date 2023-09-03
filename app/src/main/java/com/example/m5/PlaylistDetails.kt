@@ -3,7 +3,6 @@ package com.example.m5
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,7 +24,9 @@ class PlaylistDetails : AppCompatActivity() {
         setTheme(MainActivity.currentTheme[MainActivity.themeIndex])
         binding = ActivityPlaylistDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
+        transparentStatusBar(window)
+        setStatusBarTextColor(window, light = true)
+
         currentPlaylistPos = intent.extras?.get("index") as Int
         try {
             PlaylistActivity.musicPlaylist.ref[currentPlaylistPos].playlist =
