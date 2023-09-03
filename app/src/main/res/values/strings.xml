@@ -43,5 +43,8 @@
     <string name="author">BY 杨青花一</string>
     <string name="playlistSongNum">0 首</string>
     <string name="whatsNew">可以自由换主题色 </string>
+    <string name="addPlaylist">加入到歌单 </string>
+    <string name="deleteForever">永久删除 </string>
+    <string name="playNext">下一首播放 </string>
 
 </resources>

@@ -11,12 +11,11 @@ import com.example.m5.databinding.ActivityFavouriteBinding
 class FavouriteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFavouriteBinding
-    private lateinit var adapter: FavouriteAdapter
+    private lateinit var adapter: MusicAdapter
 
     companion object {
         var favouriteSongs: ArrayList<Music> = ArrayList()
         var favouritesChanged: Boolean = false
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +25,8 @@ class FavouriteActivity : AppCompatActivity() {
         setContentView(binding.root)
         transparentStatusBar(window)
         setStatusBarTextColor(window, light = true)
+
+
         //检查并排除已经不存在的音乐
         favouriteSongs = checkPlaylist(favouriteSongs)
 
@@ -34,10 +35,12 @@ class FavouriteActivity : AppCompatActivity() {
         // 设置 RecyclerView 的布局管理器为线性布局管理器
         binding.favouriteRV.layoutManager = LinearLayoutManager(this)
         // 创建 MusicAdapter 实例，并传入 MainActivity 和音乐列表作为参数
-        adapter = FavouriteAdapter(this, favouriteSongs)
-
-        // 将 musicAdapter 设置为 musicRV 的适配器
+//        adapter = FavouriteAdapter(this, favouriteSongs)
+        adapter =
+            MusicAdapter(this@FavouriteActivity, favouriteSongs,favouriteActivity=true)        // 将 musicAdapter 设置为 musicRV 的适配器
         binding.favouriteRV.adapter = adapter
+
+
         binding.shuffleBtnFA.setOnClickListener {
             if (favouriteSongs.size >= 1) {
                 val intent = Intent(
@@ -84,7 +87,8 @@ class FavouriteActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         if (favouritesChanged) {
-            adapter.updateFavourites(favouriteSongs)
+            updateFavourites(favouriteSongs)
+            adapter.notifyDataSetChanged()
             favouritesChanged = false
         }
     }

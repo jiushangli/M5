@@ -34,6 +34,8 @@ class PlaylistDetails : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+
+
         binding.playlistDetailsRV.setItemViewCacheSize(10)
         binding.playlistDetailsRV.setHasFixedSize(true)
         binding.playlistDetailsRV.layoutManager = LinearLayoutManager(this)

@@ -1,6 +1,7 @@
 package com.example.m5
 
 import android.app.Activity
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.media.MediaMetadataRetriever
@@ -8,8 +9,13 @@ import android.os.Build
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import android.widget.RelativeLayout
+import android.widget.Toast
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.io.File
 import kotlin.system.exitProcess
+
+
 
 data class Music(
     val id: String, val title: String, val album: String,
@@ -59,11 +65,12 @@ fun setSongPosition(increment: Boolean) {
 }
 
 fun exitApplication() {
-    if(PlayerActivity.musicService != null){
+    if (PlayerActivity.musicService != null) {
         PlayerActivity.musicService!!.audioManager.abandonAudioFocus(PlayerActivity.musicService)
         PlayerActivity.musicService!!.stopForeground(true)
         PlayerActivity.musicService!!.mediaPlayer!!.release()
-        PlayerActivity.musicService = null}
+        PlayerActivity.musicService = null
+    }
     exitProcess(1)
 }
 
@@ -109,6 +116,7 @@ fun transparentStatusBar(window: Window) {
     //设置状态栏文字颜色
 //    setStatusBarTextColor(window, false)
 }
+
 fun setStatusBarTextColor(window: Window, light: Boolean) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         var systemUiVisibility = window.decorView.systemUiVisibility
@@ -119,5 +127,49 @@ fun setStatusBarTextColor(window: Window, light: Boolean) {
         }
         window.decorView.systemUiVisibility = systemUiVisibility
     }
+}
+
+fun showItemSelectDialog(context: Context) {
+    val dialog = BottomSheetDialog(context)
+    dialog.setContentView(R.layout.item_select_dialog)
+    dialog.show()
+    dialog.findViewById<RelativeLayout>(R.id.addPlaylist)?.setOnClickListener {
+        Toast.makeText(context, "我来啦", Toast.LENGTH_SHORT).show()
+        dialog.dismiss()
+    }
+    dialog.findViewById<RelativeLayout>(R.id.playNext)?.setOnClickListener {
+        Toast.makeText(context, "我来啦", Toast.LENGTH_SHORT).show()
+        dialog.dismiss()
+    }
+    dialog.findViewById<RelativeLayout>(R.id.deleteForever)?.setOnClickListener {
+        Toast.makeText(context, "我来啦", Toast.LENGTH_SHORT).show()
+        dialog.dismiss()
+    }
+
+
+    when(context){
+        is PlayerActivity -> {
+            Toast.makeText(context, "我来自正在播放", Toast.LENGTH_SHORT).show()
+
+        }
+        is FavouriteActivity -> {
+            Toast.makeText(context, "我来自喜欢的歌", Toast.LENGTH_SHORT).show()
+
+        }
+        is PlaylistDetails -> {
+            Toast.makeText(context, "我来自歌单", Toast.LENGTH_SHORT).show()
+
+        }
+        is MainActivity -> {
+            Toast.makeText(context, "我来自主界面", Toast.LENGTH_SHORT).show()
+
+        }
+    }
+
+}
+
+fun updateFavourites(newList: ArrayList<Music>) {
+    val musicList = ArrayList<Music>()
+    musicList.addAll(newList)
 }
 

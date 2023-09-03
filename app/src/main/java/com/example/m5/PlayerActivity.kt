@@ -68,6 +68,10 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         } else
             initializeLayout()
 
+        binding.navPA.setOnClickListener {
+            showItemSelectDialog(this@PlayerActivity)
+        }
+
         //绑定播放按钮
         binding.playPauseBtnPA.setOnClickListener() {
             if (isPlaying) {

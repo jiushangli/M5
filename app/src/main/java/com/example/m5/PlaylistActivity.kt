@@ -22,7 +22,7 @@ class PlaylistActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPlaylistBinding
     private lateinit var adapter: PlaylistViewAdapter
 
-    companion object{
+    companion object {
         var musicPlaylist: MusicPlaylist = MusicPlaylist()
     }
 
@@ -40,7 +40,7 @@ class PlaylistActivity : AppCompatActivity() {
         binding.playlistRV.setHasFixedSize(true)
         binding.playlistRV.setItemViewCacheSize(13)
         // 设置 RecyclerView 的布局管理器为线性布局管理器
-        binding.playlistRV.layoutManager = GridLayoutManager(this@PlaylistActivity,2)
+        binding.playlistRV.layoutManager = GridLayoutManager(this@PlaylistActivity, 2)
         // 创建 MusicAdapter 实例，并传入 MainActivity 和音乐列表作为参数
         adapter = PlaylistViewAdapter(this, playlistList = musicPlaylist.ref)
         // 将 musicAdapter 设置为 musicRV 的适配器
@@ -74,27 +74,28 @@ class PlaylistActivity : AppCompatActivity() {
             .setTitle("创建")
             .setPositiveButton("完成") { dialog, _ ->
                 val playlistName = binder.playlistName.text.toString()
-                val createdBy = binder.yourName.text.toString()
-                if(playlistName.isNotEmpty() && createdBy.isNotEmpty()){
-                    addPlaylist(playlistName, createdBy)
+                if (playlistName.isNotEmpty()) {
+                    addPlaylist(playlistName)
                 }
                 dialog.dismiss()
-            }.show()
+            }
+        val cusDialog = builder.create()
+        cusDialog.show()
+
     }
 
-    private fun addPlaylist(name: String, createdBy: String) {
+    private fun addPlaylist(name: String) {
         var playlistExists = false
-        for(i in musicPlaylist.ref){
-            if(name.equals(i.name)){
+        for (i in musicPlaylist.ref) {
+            if (name.equals(i.name)) {
                 playlistExists = true
                 break
             }
         }
-        if(playlistExists) Toast.makeText(this, "已经创建过啦", Toast.LENGTH_SHORT).show()
-        else{
+        if (playlistExists) Toast.makeText(this, "已经创建过啦", Toast.LENGTH_SHORT).show()
+        else {
             val tempPlaylist = Playlist()
             tempPlaylist.name = name
-            tempPlaylist.createdBy = createdBy
             tempPlaylist.playlist = ArrayList()
             val calendar = Calendar.getInstance().time
             val sdf = SimpleDateFormat("dd MMM yyyy", Locale.ENGLISH)
@@ -104,7 +105,7 @@ class PlaylistActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume(){
+    override fun onResume() {
         super.onResume()
         adapter.notifyDataSetChanged()
     }

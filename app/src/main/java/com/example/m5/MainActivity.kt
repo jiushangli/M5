@@ -125,6 +125,7 @@ class MainActivity : AppCompatActivity() {
                 ).setAction("your.custom.action")
             )
         }
+
     }
 
     //打开应用时获取权限的函数

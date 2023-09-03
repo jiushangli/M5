@@ -9,27 +9,26 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.m5.databinding.FavouriteViewBinding
+import com.example.m5.databinding.MusicViewBinding
 
 class FavouriteAdapter(private val context: Context, private var musicList: ArrayList<Music>) :
     RecyclerView.Adapter<FavouriteAdapter.MyHolder>() {
 
-    class MyHolder(binding: FavouriteViewBinding) : RecyclerView.ViewHolder(binding.root) {
-        val image = binding.songImgFV
-        val name = binding.songNameFV
-        val artist = binding.songArtistFV
+    class MyHolder(binding: MusicViewBinding) : RecyclerView.ViewHolder(binding.root) {
+        val title = binding.songNameMV
+        val album = binding.songAlbumMV
+        val image = binding.imageMV
         val root = binding.root
-        val duration = binding.songDuration
+        val moreAciton = binding.moreAction
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteAdapter.MyHolder {
-        return MyHolder(FavouriteViewBinding.inflate(LayoutInflater.from(context), parent, false))
+        return MyHolder(MusicViewBinding.inflate(LayoutInflater.from(context), parent, false))
     }
 
     override fun onBindViewHolder(holder: FavouriteAdapter.MyHolder, position: Int) {
-        holder.name.text = musicList[position].title
-        holder.artist.text = musicList[position].artist
-        holder.duration.text = formatDuration(musicList[position].duration)
+        holder.title.text = musicList[position].title
+        holder.album.text = musicList[position].artist
         Glide.with(context)
             .load(musicList[position].artUri)
             .apply(RequestOptions().placeholder(R.drawable.moni2).centerCrop())
@@ -46,8 +45,9 @@ class FavouriteAdapter(private val context: Context, private var musicList: Arra
     override fun getItemCount(): Int {
         return musicList.size
     }
+
     @SuppressLint("NotifyDataSetChanged")
-    fun updateFavourites(newList: ArrayList<Music>){
+    fun updateFavourites(newList: ArrayList<Music>) {
         musicList = ArrayList()
         musicList.addAll(newList)
         notifyDataSetChanged()

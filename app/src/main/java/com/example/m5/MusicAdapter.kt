@@ -13,7 +13,9 @@ import com.example.m5.databinding.MusicViewBinding
 class MusicAdapter(
     private val context: Context, private var musicList: ArrayList<Music>,
     private val playlistDetails: Boolean = false,
-    private val selectionActivity: Boolean = false
+    private val selectionActivity: Boolean = false,
+    private val favouriteActivity: Boolean = false
+
 
 ) : RecyclerView.Adapter<MusicAdapter.MyHolder>() {
 
@@ -21,8 +23,8 @@ class MusicAdapter(
         val title = binding.songNameMV
         val album = binding.songAlbumMV
         val image = binding.imageMV
-        val duration = binding.songDuration
         val root = binding.root
+        val moreAciton = binding.moreAction
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicAdapter.MyHolder {
@@ -52,13 +54,22 @@ class MusicAdapter(
             .apply(RequestOptions().placeholder(R.drawable.moni2).centerCrop())
             .into(holder.image)
 
+        holder.moreAciton.setOnClickListener {
+            showItemSelectDialog(context)
+        }
+
         when {
             playlistDetails -> {
                 holder.root.setOnClickListener {
                     sendIntent(ref = "PlaylistDetailsAdapter", pos = position)
                 }
             }
+            favouriteActivity->{
+                holder.root.setOnClickListener {
+                    sendIntent(ref = "FavouriteAdapter", pos = position)
+                }
 
+            }
             selectionActivity -> {
                 holder.root.setOnClickListener {
                     if (addSong(musicList[position])) {

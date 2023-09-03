@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_marginStart="5dp"
-        android:layout_toStartOf="@+id/songDuration"
+        android:layout_toStartOf="@+id/more_action"
         android:layout_toEndOf="@id/imageMV"
         android:gravity="center_vertical"
         android:singleLine="true"
@@ -34,7 +34,7 @@
         android:layout_height="18dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="24dp"
-        android:layout_toStartOf="@+id/songDuration"
+        android:layout_toStartOf="@+id/more_action"
         android:layout_toEndOf="@id/imageMV"
         android:gravity="center_vertical"
         android:singleLine="true"
@@ -43,7 +43,7 @@
         android:textStyle="bold" />
 
     <ImageButton
-        android:id="@+id/songDuration"
+        android:id="@+id/more_action"
         android:layout_width="40dp"
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
