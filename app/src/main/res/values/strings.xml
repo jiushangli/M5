@@ -46,5 +46,6 @@
     <string name="addPlaylist">加入到歌单 </string>
     <string name="deleteForever">永久删除 </string>
     <string name="playNext">下一首播放 </string>
+<!--    <string name="addToFavourite">我喜欢</string>-->
 
 </resources>

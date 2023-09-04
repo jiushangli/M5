@@ -12,6 +12,8 @@ import android.view.WindowManager
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -24,6 +26,7 @@ data class Music(
     val id: String, val title: String, val album: String,
     val artist: String, val duration: Long = 0, val path: String, val artUri: String
 )
+lateinit var music: Music
 
 class Playlist {
     lateinit var name: String
@@ -133,11 +136,48 @@ fun setStatusBarTextColor(window: Window, light: Boolean) {
 }
 
 fun showItemSelectDialog(context: Context, position: Int) {
+
     val dialog = BottomSheetDialog(context)
     dialog.setContentView(R.layout.item_select_dialog)
     dialog.show()
+
+    when (context) {
+        is PlayerActivity -> {
+            music = PlayerActivity.musicListPA[PlayerActivity.songPosition]
+            showPlaylistSelectDialogMusic(
+                dialog,
+                context,
+                music
+            )
+        }
+
+        is FavouriteActivity -> {
+            music = FavouriteActivity.favouriteSongs[position]
+            showPlaylistSelectDialogMusic(
+                dialog,
+                context,
+                music
+            )
+        }
+
+        is PlaylistDetails -> {
+            music =
+                PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist[position]
+            showPlaylistSelectDialogMusic(
+                dialog,
+                context,
+                music
+            )
+        }
+
+        is MainActivity -> {
+            music = MainActivity.MusicListMA[position]
+            showPlaylistSelectDialogMusic(dialog, context, music)
+        }
+    }
+
     dialog.findViewById<RelativeLayout>(R.id.addPlaylist)?.setOnClickListener {
-        Toast.makeText(context, "我来啦", Toast.LENGTH_SHORT).show()
+        showChoosePlaylistDialog(context, music)
         dialog.dismiss()
     }
     dialog.findViewById<RelativeLayout>(R.id.playNext)?.setOnClickListener {
@@ -147,36 +187,6 @@ fun showItemSelectDialog(context: Context, position: Int) {
     dialog.findViewById<RelativeLayout>(R.id.deleteForever)?.setOnClickListener {
         Toast.makeText(context, "我来啦", Toast.LENGTH_SHORT).show()
         dialog.dismiss()
-    }
-
-
-    when (context) {
-        is PlayerActivity -> {
-            showPlaylistSelectDialogMusic(dialog, context, PlayerActivity.musicListPA[PlayerActivity.songPosition])
-
-        }
-
-        is FavouriteActivity -> {
-            showPlaylistSelectDialogMusic(dialog, context, FavouriteActivity.favouriteSongs[position])
-
-        }
-
-        is PlaylistDetails -> {
-            showPlaylistSelectDialogMusic(dialog, context, PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist[position])
-        }
-
-        is MainActivity -> {
-            dialog.findViewById<ShapeableImageView>(R.id.imageMV)?.let {
-                Glide.with(context)
-                    .load(MainActivity.MusicListMA[position].artUri)
-                    .apply(RequestOptions().placeholder(R.drawable.moni1).centerCrop())
-                    .into(it)
-            }
-            dialog.findViewById<TextView>(R.id.songNameISD)?.text =
-                MainActivity.MusicListMA[position].title
-            dialog.findViewById<TextView>(R.id.songArtistISD)?.text =
-                MainActivity.MusicListMA[position].artist
-        }
     }
 
 }
@@ -197,5 +207,38 @@ fun showPlaylistSelectDialogMusic(dialog: BottomSheetDialog, context: Context, m
 fun updateFavourites(newList: ArrayList<Music>) {
     val musicList = ArrayList<Music>()
     musicList.addAll(newList)
+}
+
+fun showChoosePlaylistDialog(context: Context, music: Music) {
+    val dialog = BottomSheetDialog(context)
+    dialog.setContentView(R.layout.choose_playlist_dialog)
+    dialog.show()
+
+    //显示歌单列表
+    val binding = dialog.findViewById<RecyclerView>(R.id.playlistCPD)
+    binding?.setHasFixedSize(true)
+    binding?.setItemViewCacheSize(13)
+    // 设置 RecyclerView 的布局管理器为线性布局管理器
+    binding?.layoutManager = GridLayoutManager(context, 2)
+    // 创建 MusicAdapter 实例，并传入 MainActivity 和音乐列表作为参数
+    val adapter = PlaylistViewAdapter(
+        context,
+        playlistList = PlaylistActivity.musicPlaylist.ref,
+        choosePlaylistActivity = true,
+        dialog = dialog
+    )
+    // 将 musicAdapter 设置为 musicRV 的适配器
+    binding?.adapter = adapter
+
+    dialog.findViewById<RelativeLayout>(R.id.addFavourite)?.setOnClickListener {
+        if (music in FavouriteActivity.favouriteSongs) {
+            Toast.makeText(context, "已经收藏过啦", Toast.LENGTH_SHORT).show()
+            return@setOnClickListener
+        } else {
+            FavouriteActivity.favouriteSongs.add(music)
+            Toast.makeText(context, "收藏成功!", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+    }
 }
 

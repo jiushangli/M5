@@ -28,10 +28,9 @@
                         app:srcCompat="@drawable/yqhy" />
                 </com.google.android.material.card.MaterialCardView>
 
-
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginHorizontal="18dp"
                     android:layout_marginTop="10dp"
@@ -43,15 +42,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/playlist_name"
-                        android:textSize="18sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/playlistSongNum"
-                        android:paddingTop="3dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
                         android:layout_alignParentEnd="true"
                         android:text="@string/playlistSongNum"
                         android:textSize="12sp"

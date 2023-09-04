@@ -55,7 +55,7 @@ class MusicAdapter(
             .into(holder.image)
 
         holder.moreAciton.setOnClickListener {
-            showItemSelectDialog(context,position)
+            showItemSelectDialog(context, position)
         }
 
         when {
@@ -64,11 +64,13 @@ class MusicAdapter(
                     sendIntent(ref = "PlaylistDetailsAdapter", pos = position)
                 }
             }
-            favouriteActivity->{
+
+            favouriteActivity -> {
                 holder.root.setOnClickListener {
                     sendIntent(ref = "FavouriteAdapter", pos = position)
                 }
             }
+
             selectionActivity -> {
                 holder.root.setOnClickListener {
                     if (addSong(musicList[position])) {
