@@ -20,7 +20,7 @@ class MusicAdapter(
 
     class MyHolder(binding: MusicViewBinding) : RecyclerView.ViewHolder(binding.root) {
         val title = binding.songNameMV
-        val album = binding.songAlbumMV
+        val artist = binding.artistMV
         val image = binding.imageMV
         val root = binding.root
         val moreAciton = binding.moreAction
@@ -50,7 +50,7 @@ class MusicAdapter(
 
     override fun onBindViewHolder(holder: MusicAdapter.MyHolder, position: Int) {
         holder.title.text = musicList[position].title
-        holder.album.text = musicList[position].artist
+        holder.artist.text = musicList[position].artist
 //        holder.duration.text = formatDuration(musicList[position].duration)
         //加载图片
         Glide.with(context)
@@ -77,7 +77,6 @@ class MusicAdapter(
             }
 
             selectionActivity -> {
-
                 holder.root.setOnClickListener {
                     if (addSong(musicList[position])) {
                         holder.root.setBackgroundColor(

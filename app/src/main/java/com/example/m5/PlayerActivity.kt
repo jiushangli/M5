@@ -24,7 +24,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCompletionListener {
     companion object {
-        lateinit var musicListPA : ArrayList<Music>
+        var musicListPA  =  ArrayList<Music>()
         var songPosition: Int = 0
 
         //?的含义是可以为空,!的含义是非空断言,!!的含义是非空断言,如果为空就抛出异常

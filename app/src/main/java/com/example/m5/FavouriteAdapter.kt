@@ -16,7 +16,7 @@ class FavouriteAdapter(private val context: Context, private var musicList: Arra
 
     class MyHolder(binding: MusicViewBinding) : RecyclerView.ViewHolder(binding.root) {
         val title = binding.songNameMV
-        val album = binding.songAlbumMV
+        val artist = binding.artistMV
         val image = binding.imageMV
         val root = binding.root
         val moreAciton = binding.moreAction
@@ -28,7 +28,7 @@ class FavouriteAdapter(private val context: Context, private var musicList: Arra
 
     override fun onBindViewHolder(holder: FavouriteAdapter.MyHolder, position: Int) {
         holder.title.text = musicList[position].title
-        holder.album.text = musicList[position].artist
+        holder.artist.text = musicList[position].artist
         Glide.with(context)
             .load(musicList[position].artUri)
             .apply(RequestOptions().placeholder(R.drawable.moni2).centerCrop())

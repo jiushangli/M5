@@ -27,6 +27,7 @@ data class Music(
     val id: String, val title: String, val album: String,
     val artist: String, val duration: Long = 0, val path: String, val artUri: String
 )
+
 lateinit var music: Music
 
 class Playlist {
@@ -182,11 +183,29 @@ fun showItemSelectDialog(context: Context, position: Int) {
         dialog.dismiss()
     }
     dialog.findViewById<RelativeLayout>(R.id.playNext)?.setOnClickListener {
-        Toast.makeText(context, "我来啦", Toast.LENGTH_SHORT).show()
+
+        if (PlayerActivity.musicListPA.isNotEmpty()) {
+            var inx = -1
+            PlayerActivity.musicListPA.forEachIndexed { index, musicPA ->
+                if (musicPA.id == music.id) {
+                    inx = index
+                }
+            }
+            if (inx != -1)
+                PlayerActivity.musicListPA.removeAt(inx)
+            PlayerActivity.musicListPA.add(PlayerActivity.songPosition, music)
+
+        }
+        PlayerActivity.musicListPA.add(PlayerActivity.songPosition, music)
+        Toast.makeText(context, "添加成功", Toast.LENGTH_SHORT).show()
         dialog.dismiss()
     }
     dialog.findViewById<RelativeLayout>(R.id.deleteForever)?.setOnClickListener {
-        Toast.makeText(context, "我来啦", Toast.LENGTH_SHORT).show()
+        //在控制台打印
+
+        if (deleteMusic(music.path))
+            Toast.makeText(context, "删除成功", Toast.LENGTH_SHORT).show()
+//        Log.d("TAG", deleteMusic(music.path).toString())
         dialog.dismiss()
     }
 

@@ -13,7 +13,7 @@ import com.google.gson.GsonBuilder
 
 class PlaylistDetails : AppCompatActivity() {
     lateinit var binding: ActivityPlaylistDetailsBinding
-    lateinit var adapter: MusicAdapter
+    private lateinit var adapter: MusicAdapter
 
     companion object {
         var currentPlaylistPos: Int = -1
