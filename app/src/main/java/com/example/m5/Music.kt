@@ -3,6 +3,7 @@ package com.example.m5
 import android.app.Activity
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.media.MediaMetadataRetriever
 import android.os.Build
@@ -229,6 +230,22 @@ fun showChoosePlaylistDialog(context: Context, music: Music) {
     )
     // 将 musicAdapter 设置为 musicRV 的适配器
     binding?.adapter = adapter
+
+    val decoration: RecyclerView.ItemDecoration = object : RecyclerView.ItemDecoration() {
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            super.getItemOffsets(outRect, view, parent, state)
+            outRect.right = 0
+            outRect.left = 0
+            outRect.top = 10
+            outRect.bottom = 10
+        }
+    }
+    binding?.addItemDecoration(decoration)
 
     dialog.findViewById<RelativeLayout>(R.id.addFavourite)?.setOnClickListener {
         if (music in FavouriteActivity.favouriteSongs) {

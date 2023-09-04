@@ -51,7 +51,6 @@ class PlaylistViewAdapter(
                         dialog.dismiss()
                     }
                 }
-
             }
 
             else -> {

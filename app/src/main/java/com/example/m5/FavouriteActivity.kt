@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.m5.databinding.ActivityFavouriteBinding
 
@@ -77,7 +78,10 @@ class FavouriteActivity : AppCompatActivity() {
             }
         }
         binding.addBtnFA.setOnClickListener {
-            Toast.makeText(this, "喜欢的歌要一首一首添加", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, SelectionActivity::class.java).setAction("your.custom.action")
+            intent.putExtra("from", "favouriteActivity")
+            ContextCompat.startActivity(this, intent, null)
+            favouritesChanged = true
         }
 
         favouritesChanged = false

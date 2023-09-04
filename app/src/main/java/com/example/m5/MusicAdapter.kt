@@ -14,9 +14,8 @@ class MusicAdapter(
     private val context: Context, private var musicList: ArrayList<Music>,
     private val playlistDetails: Boolean = false,
     private val selectionActivity: Boolean = false,
-    private val favouriteActivity: Boolean = false
-
-
+    private val favouriteActivity: Boolean = false,
+    private val from: String = ""
 ) : RecyclerView.Adapter<MusicAdapter.MyHolder>() {
 
     class MyHolder(binding: MusicViewBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -32,15 +31,20 @@ class MusicAdapter(
     }
 
     private fun addSong(song: Music): Boolean {
-        PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist.forEachIndexed { index, music ->
+        val playlist = if (from == "favouriteActivity")
+            FavouriteActivity.favouriteSongs
+        else
+            PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist
+
+        playlist.forEachIndexed { index, music ->
             if (music.id == song.id) {
-                PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist.removeAt(
+                playlist.removeAt(
                     index
                 )
                 return false
             }
         }
-        PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist.add(song)
+        playlist.add(song)
         return true
     }
 
@@ -54,9 +58,10 @@ class MusicAdapter(
             .apply(RequestOptions().placeholder(R.drawable.moni2).centerCrop())
             .into(holder.image)
 
-        holder.moreAciton.setOnClickListener {
-            showItemSelectDialog(context, position)
-        }
+        if (!selectionActivity)
+            holder.moreAciton.setOnClickListener {
+                showItemSelectDialog(context, position)
+            }
 
         when {
             playlistDetails -> {
@@ -72,12 +77,13 @@ class MusicAdapter(
             }
 
             selectionActivity -> {
+
                 holder.root.setOnClickListener {
                     if (addSong(musicList[position])) {
                         holder.root.setBackgroundColor(
                             ContextCompat.getColor(
                                 context,
-                                R.color.mask_cyan
+                                R.color.Gradient_white
                             )
                         )
                     } else

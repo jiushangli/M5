@@ -1,7 +1,6 @@
 package com.example.m5
 
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,14 +15,18 @@ class SelectionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySelectionBinding.inflate(layoutInflater)
         setTheme(MainActivity.currentTheme[MainActivity.themeIndex])
-        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);  //透明状态栏
         setContentView(binding.root)
+        transparentStatusBar(window)
+        setStatusBarTextColor(window, false)
+
+        //假如是从喜欢的界面传过来,就得到上一个界面的来源并且传给Music Adapter
+        val from = intent.getStringExtra("from").toString()
+
         binding.selectionRV.setItemViewCacheSize(10)
         binding.selectionRV.setHasFixedSize(true)
         binding.selectionRV.layoutManager = LinearLayoutManager(this)
-        adapter = MusicAdapter(this, MainActivity.MusicListMA, selectionActivity = true)
+        adapter = MusicAdapter(this, MainActivity.MusicListMA, selectionActivity = true,from = from)
         binding.selectionRV.adapter = adapter
-        binding.backBtnSA.setOnClickListener { finish() }
 
         //搜索框监听
         binding.searchViewSA.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
