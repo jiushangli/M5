@@ -55,7 +55,7 @@
                         android:layout_alignParentEnd="true"
                         android:text="@string/playlistSongNum"
                         android:textSize="12sp"
-                        android:textColor="@color/mask_pink"
+                        android:textColor="@color/black"
                         android:textStyle="bold" />
 
                 </RelativeLayout>

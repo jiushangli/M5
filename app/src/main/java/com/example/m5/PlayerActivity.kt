@@ -106,21 +106,6 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
                 binding.repeatBtnPA.setImageResource(R.drawable.repeat_icon)
             }
         }
-        /*       binding.equalizerBtnPA.setOnClickListener {
-                   try {
-                       val eqIntent = Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL)
-                       eqIntent.putExtra(
-                           AudioEffect.EXTRA_AUDIO_SESSION,
-                           musicService!!.mediaPlayer!!.audioSessionId
-                       )
-                       eqIntent.putExtra(AudioEffect.EXTRA_PACKAGE_NAME, baseContext.packageName)
-                       eqIntent.putExtra(AudioEffect.EXTRA_CONTENT_TYPE, AudioEffect.CONTENT_TYPE_MUSIC)
-                       startActivityForResult(eqIntent, 13)
-                   } catch (e: Exception) {
-                       Toast.makeText(this, "似乎不支持音效", Toast.LENGTH_SHORT).show()
-                       e.printStackTrace()
-                   }
-               }*/
         //倒计时
         binding.timerBtnPA.setOnClickListener {
             val timer = min15 || min30 || min60
@@ -262,6 +247,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
     private fun initializeLayout() {
         //获取传递过来的数据,其中index为歌曲在列表中的位置,默认为0
         songPosition = intent.getIntExtra("index", 0)
+
         //获取传递过来的数据,其中class为传递过来的类名
         when(intent.getStringExtra("class")){
             "NowPlaying"->{

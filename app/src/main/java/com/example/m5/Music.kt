@@ -152,44 +152,17 @@ fun showItemSelectDialog(context: Context, position: Int) {
 
     when (context) {
         is PlayerActivity -> {
-//            dialog.findViewById<ShapeableImageView>(R.id.imageMV)?.setImageResource(R.drawable.yqhy)
-            dialog.findViewById<ShapeableImageView>(R.id.imageMV)?.let {
-                Glide.with(context)
-                    .load(PlayerActivity.musicListPA[PlayerActivity.songPosition].artUri)
-                    .apply(RequestOptions().placeholder(R.drawable.moni1).centerCrop())
-                    .into(it)
-            }
-            dialog.findViewById<TextView>(R.id.songNameISD)?.text =
-                PlayerActivity.musicListPA[PlayerActivity.songPosition].title
-            dialog.findViewById<TextView>(R.id.songArtistISD)?.text =
-                PlayerActivity.musicListPA[PlayerActivity.songPosition].artist
+            showPlaylistSelectDialogMusic(dialog, context, PlayerActivity.musicListPA[PlayerActivity.songPosition])
+
         }
 
         is FavouriteActivity -> {
-            dialog.findViewById<ShapeableImageView>(R.id.imageMV)?.let {
-                Glide.with(context)
-                    .load(FavouriteActivity.favouriteSongs[position].artUri)
-                    .apply(RequestOptions().placeholder(R.drawable.moni1).centerCrop())
-                    .into(it)
-            }
-            dialog.findViewById<TextView>(R.id.songNameISD)?.text =
-                FavouriteActivity.favouriteSongs[position].title
-            dialog.findViewById<TextView>(R.id.songArtistISD)?.text =
-                FavouriteActivity.favouriteSongs[position].artist
+            showPlaylistSelectDialogMusic(dialog, context, FavouriteActivity.favouriteSongs[position])
 
         }
 
         is PlaylistDetails -> {
-            dialog.findViewById<ShapeableImageView>(R.id.imageMV)?.let {
-                Glide.with(context)
-                    .load(PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist[position].artUri)
-                    .apply(RequestOptions().placeholder(R.drawable.moni1).centerCrop())
-                    .into(it)
-            }
-            dialog.findViewById<TextView>(R.id.songNameISD)?.text =
-                PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist[position].title
-            dialog.findViewById<TextView>(R.id.songArtistISD)?.text =
-                PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist[position].artist
+            showPlaylistSelectDialogMusic(dialog, context, PlaylistActivity.musicPlaylist.ref[PlaylistDetails.currentPlaylistPos].playlist[position])
         }
 
         is MainActivity -> {
@@ -206,6 +179,19 @@ fun showItemSelectDialog(context: Context, position: Int) {
         }
     }
 
+}
+
+fun showPlaylistSelectDialogMusic(dialog: BottomSheetDialog, context: Context, music: Music) {
+    dialog.findViewById<ShapeableImageView>(R.id.imageMV)?.let {
+        Glide.with(context)
+            .load(music.artUri)
+            .apply(RequestOptions().placeholder(R.drawable.moni1).centerCrop())
+            .into(it)
+    }
+    dialog.findViewById<TextView>(R.id.songNameISD)?.text =
+        music.title
+    dialog.findViewById<TextView>(R.id.songArtistISD)?.text =
+        music.artist
 }
 
 fun updateFavourites(newList: ArrayList<Music>) {

@@ -40,7 +40,7 @@ class PlaylistDetails : AppCompatActivity() {
         binding.playlistDetailsRV.setHasFixedSize(true)
         binding.playlistDetailsRV.layoutManager = LinearLayoutManager(this)
         adapter =
-            MusicAdapter(this, PlaylistActivity.musicPlaylist.ref[currentPlaylistPos].playlist)
+            MusicAdapter(this, PlaylistActivity.musicPlaylist.ref[currentPlaylistPos].playlist, playlistDetails = true)
         binding.playlistDetailsRV.adapter = adapter
 
         binding.shuffleBtnPD.setOnClickListener {
@@ -102,9 +102,7 @@ class PlaylistDetails : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         binding.playlistNamePD.text = PlaylistActivity.musicPlaylist.ref[currentPlaylistPos].name
-        /* binding.moreInfoPD.text = " ${adapter.itemCount} 首\n" +
-                 "创建者:   ${PlaylistActivity.musicPlaylist.ref[currentPlaylistPos].createdBy}"
- */
+
         if (adapter.itemCount > 0) {
             Glide.with(this)
                 .load(PlaylistActivity.musicPlaylist.ref[currentPlaylistPos].playlist[0].artUri)
