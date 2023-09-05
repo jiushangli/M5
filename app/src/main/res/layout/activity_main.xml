@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fdfdf5"
-    tools:context=".MainActivity">
+    tools:context=".activity.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginTop="30dp"
@@ -118,7 +118,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nowPlaying"
-            android:name="com.example.m5.NowPlaying"
+            android:name="com.example.m5.frag.NowPlaying"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

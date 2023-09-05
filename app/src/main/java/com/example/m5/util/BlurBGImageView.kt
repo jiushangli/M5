@@ -1,4 +1,4 @@
-package com.example.m5
+package com.example.m5.util
 
 import android.annotation.SuppressLint
 import android.content.Context

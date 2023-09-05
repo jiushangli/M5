@@ -1,4 +1,4 @@
-package com.example.m5
+package com.example.m5.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -9,7 +9,12 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.m5.util.Playlist
+import com.example.m5.activity.PlaylistActivity
+import com.example.m5.activity.PlaylistDetails
+import com.example.m5.R
 import com.example.m5.databinding.PlaylistViewBinding
+import com.example.m5.util.music
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -30,11 +35,11 @@ class PlaylistViewAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): PlaylistViewAdapter.MyHolder {
+    ): MyHolder {
         return MyHolder(PlaylistViewBinding.inflate(LayoutInflater.from(context), parent, false))
     }
 
-    override fun onBindViewHolder(holder: PlaylistViewAdapter.MyHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyHolder, position: Int) {
         holder.name.text = playlistList[position].name
         holder.name.isSelected = true
         holder.songNum.text = playlistList[position].playlist.size.toString() + "首"

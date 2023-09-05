@@ -1,4 +1,4 @@
-package com.example.m5
+package com.example.m5.service
 
 import android.app.PendingIntent
 import android.app.Service
@@ -14,6 +14,14 @@ import android.os.Looper
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
 import android.support.v4.media.session.PlaybackStateCompat
+import com.example.m5.util.ApplicationClass
+import com.example.m5.util.NotificationReceiver
+import com.example.m5.R
+import com.example.m5.activity.MainActivity
+import com.example.m5.activity.PlayerActivity
+import com.example.m5.frag.NowPlaying
+import com.example.m5.util.formatDuration
+import com.example.m5.util.getImgArt
 
 class MusicService : Service(), AudioManager.OnAudioFocusChangeListener {
     private var myBinder = MyBinder()

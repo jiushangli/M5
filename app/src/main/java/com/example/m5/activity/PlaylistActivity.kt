@@ -1,4 +1,4 @@
-package com.example.m5
+package com.example.m5.activity
 
 import android.graphics.Rect
 import android.icu.util.Calendar
@@ -10,8 +10,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
+import com.example.m5.R
+import com.example.m5.adapter.PlaylistViewAdapter
 import com.example.m5.databinding.ActivityPlaylistBinding
 import com.example.m5.databinding.AddPlaylistDialogBinding
+import com.example.m5.util.MusicPlaylist
+import com.example.m5.util.Playlist
+import com.example.m5.util.setStatusBarTextColor
+import com.example.m5.util.transparentStatusBar
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import java.text.SimpleDateFormat
 import java.util.Locale

@@ -1,10 +1,13 @@
-package com.example.m5
+package com.example.m5.util
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.m5.R
+import com.example.m5.activity.PlayerActivity
+import com.example.m5.frag.NowPlaying
 
 class NotificationReceiver : BroadcastReceiver() {
     override fun onReceive(content: Context?, intent: Intent?) {

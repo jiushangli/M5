@@ -1,4 +1,4 @@
-package com.example.m5
+package com.example.m5.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -7,16 +7,23 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.m5.R
+import com.example.m5.adapter.MusicAdapter
 import com.example.m5.databinding.ActivityFavouriteBinding
+import com.example.m5.util.Music
+import com.example.m5.util.checkPlaylist
+import com.example.m5.util.setStatusBarTextColor
+import com.example.m5.util.transparentStatusBar
+import com.example.m5.util.updateFavourites
 
 class FavouriteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFavouriteBinding
-    private lateinit var adapter: MusicAdapter
 
     companion object {
         var favouriteSongs: ArrayList<Music> = ArrayList()
         var favouritesChanged: Boolean = false
+        lateinit var adapter: MusicAdapter
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,4 +103,5 @@ class FavouriteActivity : AppCompatActivity() {
             favouritesChanged = false
         }
     }
+
 }

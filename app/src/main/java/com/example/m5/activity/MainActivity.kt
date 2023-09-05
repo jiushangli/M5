@@ -1,4 +1,4 @@
-package com.example.m5
+package com.example.m5.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -14,7 +14,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.m5.R
+import com.example.m5.adapter.MusicAdapter
 import com.example.m5.databinding.ActivityMainBinding
+import com.example.m5.util.Music
+import com.example.m5.util.MusicPlaylist
+import com.example.m5.util.exitApplication
+import com.example.m5.util.setStatusBarTextColor
+import com.example.m5.util.transparentStatusBar
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import java.io.File

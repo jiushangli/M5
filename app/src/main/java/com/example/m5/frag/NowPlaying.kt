@@ -1,4 +1,4 @@
-package com.example.m5
+package com.example.m5.frag
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.m5.R
+import com.example.m5.activity.MainActivity
+import com.example.m5.activity.PlayerActivity
 import com.example.m5.databinding.FragmentNowPlayingBinding
+import com.example.m5.util.setSongPosition
 
 class NowPlaying : Fragment() {
     companion object {

@@ -1,4 +1,4 @@
-package com.example.m5
+package com.example.m5.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,15 +8,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.m5.R
+import com.example.m5.activity.PlayerActivity
+import com.example.m5.adapter.MusicAdapter
 import com.example.m5.databinding.ActivityPlaylistDetailsBinding
+import com.example.m5.util.checkPlaylist
+import com.example.m5.util.setStatusBarTextColor
+import com.example.m5.util.transparentStatusBar
 import com.google.gson.GsonBuilder
 
 class PlaylistDetails : AppCompatActivity() {
     lateinit var binding: ActivityPlaylistDetailsBinding
-    private lateinit var adapter: MusicAdapter
 
     companion object {
         var currentPlaylistPos: Int = -1
+        lateinit var adapter: MusicAdapter
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,14 +87,13 @@ class PlaylistDetails : AppCompatActivity() {
                 ).setAction("your.custom.action")
             )
         }
-
         /*        binding.removeAllPD.setOnClickListener {
                     val builder = MaterialAlertDialogBuilder(this)
                     builder.setTitle("删除全部音乐")
                         .setMessage("你想要删除所有音乐吗?")
                         .setPositiveButton("我意已决") { dialog, _ ->
                             PlaylistActivity.musicPlaylist.ref[currentPlaylistPos].playlist.clear()
-                            adapter.refreshPlaylist()
+
                             dialog.dismiss()
                         }
                         .setNegativeButton("悬崖勒马") { dialog, _ ->

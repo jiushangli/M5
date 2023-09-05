@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:layout_marginTop="30dp"
-    tools:context=".SelectionActivity">
+    tools:context=".activity.SelectionActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"

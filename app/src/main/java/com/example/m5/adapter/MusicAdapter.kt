@@ -1,4 +1,4 @@
-package com.example.m5
+package com.example.m5.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -8,7 +8,15 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.m5.R
+import com.example.m5.activity.FavouriteActivity
+import com.example.m5.activity.MainActivity
+import com.example.m5.activity.PlayerActivity
+import com.example.m5.activity.PlaylistActivity
+import com.example.m5.activity.PlaylistDetails
 import com.example.m5.databinding.MusicViewBinding
+import com.example.m5.util.Music
+import com.example.m5.util.showItemSelectDialog
 
 class MusicAdapter(
     private val context: Context, private var musicList: ArrayList<Music>,
@@ -26,7 +34,7 @@ class MusicAdapter(
         val moreAciton = binding.moreAction
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicAdapter.MyHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
         return MyHolder(MusicViewBinding.inflate(LayoutInflater.from(context), parent, false))
     }
 
@@ -48,7 +56,7 @@ class MusicAdapter(
         return true
     }
 
-    override fun onBindViewHolder(holder: MusicAdapter.MyHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyHolder, position: Int) {
         holder.title.text = musicList[position].title
         holder.artist.text = musicList[position].artist
 //        holder.duration.text = formatDuration(musicList[position].duration)

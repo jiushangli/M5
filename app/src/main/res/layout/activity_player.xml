@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        tools:context=".PlayerActivity">
+        tools:context=".activity.PlayerActivity">
 
         <!--    第一行-->
         <LinearLayout

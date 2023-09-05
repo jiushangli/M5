@@ -1,8 +1,11 @@
-package com.example.m5
+package com.example.m5.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.m5.R
 import com.example.m5.databinding.ActivityAboutBinding
+import com.example.m5.util.setStatusBarTextColor
+import com.example.m5.util.transparentStatusBar
 
 class AboutActivity : AppCompatActivity() {
     lateinit var binding: ActivityAboutBinding

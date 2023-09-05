@@ -1,10 +1,13 @@
-package com.example.m5
+package com.example.m5.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.m5.adapter.MusicAdapter
 import com.example.m5.databinding.ActivitySelectionBinding
+import com.example.m5.util.setStatusBarTextColor
+import com.example.m5.util.transparentStatusBar
 
 class SelectionActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySelectionBinding

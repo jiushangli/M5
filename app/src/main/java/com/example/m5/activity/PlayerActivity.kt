@@ -1,4 +1,4 @@
-package com.example.m5
+package com.example.m5.activity
 
 import android.annotation.SuppressLint
 import android.content.ComponentName
@@ -18,7 +18,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.m5.service.MusicService
+import com.example.m5.R
 import com.example.m5.databinding.ActivityPlayerBinding
+import com.example.m5.util.Music
+import com.example.m5.util.exitApplication
+import com.example.m5.util.favouriteChecker
+import com.example.m5.util.formatDuration
+import com.example.m5.util.getImgArt
+import com.example.m5.util.setSongPosition
+import com.example.m5.util.setStatusBarTextColor
+import com.example.m5.util.showItemSelectDialog
+import com.example.m5.util.transparentStatusBar
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
